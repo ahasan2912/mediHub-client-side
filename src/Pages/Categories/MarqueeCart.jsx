@@ -9,7 +9,7 @@ const MarqueeCart = () => {
             .then((data) => setMarquee(data))
     }, []);
     return (
-        <div className="my-6 md:my-12">
+        <div className="my-6 md:my-8">
              <h1 className="text-2xl md:text-4xl font-bold uppercase">Top Companny</h1>
             <Marquee pauseOnHover={true} speed={90} className="mt-3 md:mt-5">
                 {

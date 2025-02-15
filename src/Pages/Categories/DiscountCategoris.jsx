@@ -15,7 +15,7 @@ const DiscountCategoris = () => {
     return (
         <div>
             <h1 className="text-2xl md:text-4xl font-bold uppercase">Discount Products</h1>
-            <div className="flex justify-center items-center my-10">
+            <div className="flex justify-center items-center my-10 lg:my-5">
                 <div className="w-full  px-6 relative">
                     <Swiper
                         modules={[Navigation]}

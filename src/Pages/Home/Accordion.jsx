@@ -8,7 +8,7 @@ const Accordion = () => {
                     <p>You can place an order by browsing our website, adding medicines to your cart, and proceeding to checkout.</p>
                 </div>
             </div>
-            <div className="collapse collapse-arrow bg-base-200 my-5">
+            <div className="collapse collapse-arrow bg-base-200 my-3">
                 <input type="radio" name="my-accordion-2" />
                 <div className="collapse-title text-xl font-medium">Do I need a prescription to buy medicines?</div>
                 <div className="collapse-content">
@@ -22,14 +22,14 @@ const Accordion = () => {
                     <p>We accept credit/debit cards, mobile banking (bKash, Nagad, Rocket), and cash on delivery (COD).</p>
                 </div>
             </div>
-            <div className="collapse collapse-arrow bg-base-200 my-5">
+            <div className="collapse collapse-arrow bg-base-200 my-3">
                 <input type="radio" name="my-accordion-2" />
                 <div className="collapse-title text-xl font-medium">How long does delivery take?</div>
                 <div className="collapse-content">
                     <p>Delivery time varies by location. Standard delivery takes 2-3 days, while express delivery is available within 24 hours in selected areas.</p>
                 </div>
             </div>
-            <div className="collapse collapse-arrow bg-base-200 mb-10">
+            <div className="collapse collapse-arrow bg-base-200 mb-3">
                 <input type="radio" name="my-accordion-2" />
                 <div className="collapse-title text-xl font-medium">Is there a minimum order amount for home delivery?</div>
                 <div className="collapse-content">
