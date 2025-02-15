@@ -28,7 +28,7 @@ const DiscountCategoris = () => {
 
                     >
                         {products.map((product, index) => (
-                            <SwiperSlide key={index} className='py-2'>
+                            <SwiperSlide key={index} className='py-2 px-3'>
                                 <ProductCard product={product}></ProductCard>
                             </SwiperSlide>
                         ))}
@@ -66,3 +66,4 @@ const DiscountCategoris = () => {
 };
 
 export default DiscountCategoris;
+

@@ -5,6 +5,10 @@ import Login from "../Pages/Login";
 import Home from "../Pages/Home/Home";
 import CategoriesShow from "../Pages/Categories/CategoriesShow";
 import Shop from "../Pages/Shop/Shop";
+import Dashboard from "../Layout/Dashboard";
+import UserHome from "../Pages/Dashboard/User/UserHome";
+import AdminHome from "../Pages/Dashboard/Admin/AdminHome";
+
 
 export const router = createBrowserRouter([
     {
@@ -34,4 +38,18 @@ export const router = createBrowserRouter([
         }
       ]
     },
+    {
+      path: 'dashboard',
+      element: <Dashboard></Dashboard>,
+      children: [
+        {
+          path: 'userHome',
+          element: <UserHome></UserHome>
+        },
+        {
+          path: 'adminHome',
+          element: <AdminHome></AdminHome>
+        }
+      ]
+    }
   ]);

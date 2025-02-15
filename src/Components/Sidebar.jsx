@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import {  FaHome,FaMoon, FaShoppingBag, FaSun } from "react-icons/fa";
+import { BiDetail } from "react-icons/bi";
+import { FaFacebook, FaGithub, FaHome, FaLinkedin, FaMoon, FaSun } from "react-icons/fa";
 import logo from '../assets/medEasyIcon.svg'
 import { FiMenu, FiX } from "react-icons/fi";
+import { GoProject } from "react-icons/go";
+import { MdOutlineContactPhone } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import useAuth from "../Hook/useAuth";
-import { FaBagShopping } from "react-icons/fa6";
-import { RiLoginBoxLine } from "react-icons/ri";
-
-const Navbar = () => {
+const Sidebar = () => {
     const { user, handleLogOut } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -63,29 +63,6 @@ const Navbar = () => {
                         <div className="text-xl md:text-2xl font-semibold">MediHub</div>
                     </Link>
                 </div>
-
-                {/* Desktop Menu */}
-                <ul className="hidden md:flex items-center space-x-3 lg:space-x-7">
-                    <NavLink to='/' className="font-semibold text-lg">Home</NavLink>
-                    <NavLink to='/shop' className="font-semibold text-lg">Shop</NavLink>
-                    <NavLink to='/dashboard'>
-                        <div className="border bg-white p-2 rounded-lg relative">
-                            <FaShoppingBag size={20} className="text-[#30baec]" />
-                            <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">90</div>
-                        </div>
-                    </NavLink>
-                    {!user && (
-                        <NavLink className='font-semibold text-lg' to='/login'>Join Us</NavLink>
-                    )}
-                    <NavLink className="w-60">
-                        <select defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-blue-300 w-full">
-                            <option disabled value="default">Select Language</option>
-                            <option>English</option>
-                            <option>Japanese</option>
-                            <option>Italian</option>
-                        </select>
-                    </NavLink>
-                </ul>
                 <div className="flex items-center gap-4">
                     {/* NaverEnd */}
                     <div className='flex'>
@@ -96,7 +73,7 @@ const Navbar = () => {
                                     <div
                                         tabIndex={0}
                                         role='button'
-                                        className='border-2 border-gray-300 rounded-full p-1'
+                                        className='border-2 border-blue-300 rounded-full p-1'
                                     >
                                         <div>
                                             <img
@@ -148,14 +125,14 @@ const Navbar = () => {
             <div
                 className={`fixed top-0 left-0 h-full bg-[#25A8D6] z-40 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} w-1/2 shadow-md transition-transform duration-300`}>
                 {/* Close Button */}
-                <div className="absolute top-4 text-2xl font-bold px-1 text-white">MediHub</div>
+                <div className="absolute top-4 text-2xl font-bold px-1 text-white">Dashboard</div>
                 <button
                     onClick={toggleNavbar}
                     className="absolute top-5 right-4 text-2xl focus:outline-none text-white">
                     <FiX className="text-3xl" />
                 </button>
-                <ul className="flex flex-col mt-[72px] text-white">
-                    <li className="border-y flex items-center justify-start px-1">
+                <ul className="flex flex-col mt-[70px] text-black">
+                    <li className="border-y flex items-center justify-start px-4">
                         <NavLink
                             to="/"
                             className="py-4 px-1 text-lg hover:bg-gray-200 flex items-center gap-1"
@@ -164,39 +141,65 @@ const Navbar = () => {
                             Home
                         </NavLink>
                     </li>
-                    <li className="border-b flex items-center justify-start px-1">
+                    <li className="border-b flex items-center justify-start px-4">
                         <NavLink
-                            to="/shop"
+                            to="/about"
                             className="flex items-center gap-1 py-4 px-1 text-lg hover:bg-gray-200"
                             onClick={toggleNavbar}
                         >
-                            <FaBagShopping className="text-lg" />
-                            Shop
+                            <BiDetail className="text-lg" />
+                            About Me
                         </NavLink>
                     </li>
-                    <li className="border-b flex items-center justify-start px-1">
-                        <NavLink className="py-3" to='/dashboard'>
-                            <div className="border bg-white p-2 rounded-lg relative">
-                                <FaShoppingBag size={20} className="text-[#30baec]" />
-                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">90</div>
-                            </div>
+                    <li className="border-b flex items-center justify-start px-4">
+                        <NavLink
+                            to="/project"
+                            className="flex items-center gap-1 py-4 px-1 text-lg hover:bg-gray-200"
+                            onClick={toggleNavbar}
+                        >
+                            <GoProject className="text-lg" />
+                            Projects
                         </NavLink>
                     </li>
-                    <li className="border-b flex items-center justify-start px-1">
-                        <NavLink className="py-2">
-                            <select defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-red-600 w-full">
-                                <option disabled value="default">Select Language</option>
-                                <option>English</option>
-                                <option>Japanese</option>
-                                <option>Italian</option>
-                            </select>
+                    <li className="border-b flex items-center justify-start px-4">
+                        <NavLink
+                            to="/contact"
+                            className="flex items-center gap-1 py-4 px-1 text-lg hover:bg-gray-200"
+                            onClick={toggleNavbar}
+                        >
+                            <MdOutlineContactPhone className="text-lg" />
+                            Contact
                         </NavLink>
                     </li>
-                    <li className="border-b flex items-center justify-start px-1">
-                        <RiLoginBoxLine className="text-2xl" />
-                        {!user && (
-                        <NavLink className='font-semibold text-lg py-4' to='/login'>Join Us</NavLink>
-                    )}
+                    <li className="border-b flex items-center justify-start px-4">
+                        <FaGithub className="text-lg" />
+                        <NavLink
+                            to="https://github.com/ahasan2912" target="_blank"
+                            className="block py-4 px-1 text-lg hover:bg-gray-200"
+                            onClick={toggleNavbar}
+                        >
+                            GitHub
+                        </NavLink>
+                    </li>
+                    <li className="border-b flex items-center justify-start px-4">
+                        <FaLinkedin className="text-lg" />
+                        <NavLink
+                            to="https://www.linkedin.com/in/ahasanhabib2912/" target="_blank"
+                            className="block py-4 px-1 text-lg hover:bg-gray-200"
+                            onClick={toggleNavbar}
+                        >
+                            Linkedin
+                        </NavLink>
+                    </li>
+                    <li className="border-b flex items-center justify-start px-4">
+                        <FaFacebook className="text-lg" />
+                        <NavLink
+                            to="https://web.facebook.com/mdahashanhabib.siam" target="_blank"
+                            className="block py-4 px-1 text-lg hover:bg-gray-200"
+                            onClick={toggleNavbar}
+                        >
+                            Facebook
+                        </NavLink>
                     </li>
                 </ul>
             </div>
@@ -204,4 +207,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Sidebar;
