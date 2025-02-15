@@ -18,7 +18,7 @@ const CategoriesShow = () => {
                             <th className="text-base font-bold" >Photo</th>
                             <th className="text-base font-bold" >Name</th>
                             <th className="text-base font-bold" >Price</th>
-                            <th className="text-base font-bold" >Select</th>
+                            <th className="text-base font-bold" >Add To Cart</th>
                             <th className="text-base font-bold" >Details</th>
                         </tr>
                     </thead>

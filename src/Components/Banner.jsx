@@ -11,7 +11,7 @@ import banner5 from '../assets/content-21.webp';
 import banner6 from '../assets/content-22.webp';
 const Banner = () => {
     return (
-        <div className='my-16'>
+        <div className='mt-16'>
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}

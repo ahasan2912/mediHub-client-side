@@ -9,11 +9,12 @@ const MarqueeCart = () => {
             .then((data) => setMarquee(data))
     }, []);
     return (
-        <div>
-            <Marquee pauseOnHover={true} speed={90} className="my-10">
+        <div className="my-6 md:my-12">
+             <h1 className="text-2xl md:text-4xl font-bold uppercase">Top Companny</h1>
+            <Marquee pauseOnHover={true} speed={90} className="mt-3 md:mt-5">
                 {
                     marquee.map((item, idx) => <div key={idx} className="bg-blue-300 p-1 border m-1 rounded-lg" >
-                        <img className="w-52 h-28" src={item.image} alt="" />
+                        <img className="w-32 h-16 md:w-52 md:h-28" src={item.image} alt="" />
                     </div>)
                 }
             </Marquee>

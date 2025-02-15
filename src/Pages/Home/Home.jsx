@@ -4,7 +4,7 @@ import Accordion from "./Accordion";
 
 const Home = () => {
     return (
-        <div className="md:w-[90%] mx-auto px-5">
+        <div className="md:w-[90%] mx-auto px-3 mt-24 sm:mt-5 ">
             <Banner></Banner>
             <Categories></Categories>
             <Accordion></Accordion>

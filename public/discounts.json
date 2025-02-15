@@ -1,0 +1,82 @@
+[
+    {
+        "discountPercentage": 10,
+        "name": "Paracetamol 500mg",
+        "category": "Pain Relief",
+        "company": "ACME Laboratories Ltd.",
+        "price": 25.00,
+        "image": "https://i.ibb.co.com/nSWH5qs/IMG-20231021-WA0223.webp"
+    },
+    {
+        "discountPercentage": 12,
+        "name": "Cetirizine 10mg",
+        "category": "Allergy",
+        "company": "Square Pharmaceuticals Ltd.",
+        "price": 30.00,
+        "image": "https://i.ibb.co.com/k2cWgnFZ/IMG-20240529-WA0345.webp"
+    },
+    {
+        "discountPercentage": 8,
+        "name": "Omeprazole 20mg",
+        "category": "Gastric Care",
+        "company": "Beximco Pharmaceuticals Ltd.",
+        "price": 60.00,
+        "image": "https://i.ibb.co.com/cSVqJcDJ/N95-mask-Q93to-Yj.webp"
+    },
+    {
+        "discountPercentage": 15,
+        "name": "Metformin 500mg",
+        "category": "Diabetes",
+        "company": "Incepta Pharmaceuticals Ltd.",
+        "price": 80.00,
+        "image": "https://i.ibb.co.com/Gff0WXLk/IMG-20231021-WA0131.webp"
+    },
+    {
+        "discountPercentage": 5,
+        "name": "Aspirin 75mg",
+        "category": "Heart Care",
+        "company": "Renata Limited",
+        "price": 50.00,
+        "image": "https://i.ibb.co.com/qYLKjxBn/IMG-20231019-WA0397.webp"
+    },
+    {
+        "discountPercentage": 18,
+        "name": "Cefixime 200mg",
+        "category": "Antibiotic",
+        "company": "Eskayef Pharmaceuticals Ltd.",
+        "price": 150.00,
+        "image": "https://i.ibb.co.com/My5CvgnB/IMG-20231021-WA0178.webp"
+    },
+    {
+        "discountPercentage": 7,
+        "name": "Montelukast 10mg",
+        "category": "Asthma & Allergy",
+        "company": "Aristopharma Ltd.",
+        "price": 120.00,
+        "image": "https://i.ibb.co.com/21JmzPG2/IMG-20231029-WA0077.webp"
+    },
+    {
+        "discountPercentage": 20,
+        "name": "Losartan 50mg",
+        "category": "Blood Pressure",
+        "company": "ACI Limited",
+        "price": 90.00,
+        "image": "https://i.ibb.co.com/4RZZmH8M/IMG-20231029-WA0083.webp"
+    },
+    {
+        "discountPercentage": 10,
+        "name": "Azithromycin 500mg",
+        "category": "Antibiotic",
+        "company": "Opsonin Pharma Ltd.",
+        "price": 200.00,
+        "image": "https://i.ibb.co.com/HTm2PxHk/IMG-20231029-WA0097.webp"
+    },
+    {
+        "discountPercentage": 25,
+        "name": "Vitamin C 500mg",
+        "category": "Immunity Booster",
+        "company": "Globe Pharmaceuticals Ltd.",
+        "price": 40.00,
+        "image": "https://i.ibb.co.com/1GdTcrrx/IMG-20231029-WA0141.webp"
+    }
+]

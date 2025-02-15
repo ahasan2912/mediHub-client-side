@@ -2,38 +2,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import { useEffect, useState } from "react";
+import ProductCard from '../../Components/ProductCard';
 
 const DiscountCategoris = () => {
-    const categories = [
-        {
-            title: "Customer Help",
-            jobs: "185 Jobs Available",
-            icon: "🎧", // Replace with appropriate icons/images
-        },
-        {
-            title: "Finance",
-            jobs: "168 Jobs Available",
-            icon: "🏦",
-        },
-        {
-            title: "Software",
-            jobs: "1856 Jobs Available",
-            icon: "💡",
-        },
-        {
-            title: "Human Resource",
-            jobs: "165 Jobs Available",
-            icon: "👔",
-        },
-        {
-            title: "Management",
-            jobs: "965 Jobs Available",
-            icon: "📊",
-        },
-    ];
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        fetch('discounts.json')
+            .then(res => res.json())
+            .then(data => setProducts(data))
+    }, [])
     return (
         <div>
-            <h1 className='text-center font-bold text-4xl'>Discount Products</h1>
+            <h1 className="text-2xl md:text-4xl font-bold uppercase">Discount Products</h1>
             <div className="flex justify-center items-center my-10">
                 <div className="w-full  px-6 relative">
                     <Swiper
@@ -46,13 +27,9 @@ const DiscountCategoris = () => {
                         }}
 
                     >
-                        {categories.map((category, index) => (
-                            <SwiperSlide key={index}>
-                                <div className="bg-gray-300 flex flex-col items-center justify-center shadow-md rounded-lg p-4 min-w-[200px] transition-transform hover:scale-105">
-                                    <div className="text-4xl">{category.icon}</div>
-                                    <h3 className="text-lg font-semibold mt-2">{category.title}</h3>
-                                    <p className="text-sm text-gray-500">{category.jobs}</p>
-                                </div>
+                        {products.map((product, index) => (
+                            <SwiperSlide key={index} className='py-2'>
+                                <ProductCard product={product}></ProductCard>
                             </SwiperSlide>
                         ))}
                     </Swiper>
