@@ -1,6 +1,7 @@
 const Accordion = () => {
     return (
-        <div>
+        <div className="">
+            <h1 className="text-2xl md:text-4xl font-bold uppercase mb-7">FQA</h1>
             <div className="collapse collapse-arrow bg-base-200">
                 <input type="radio" name="my-accordion-2" defaultChecked />
                 <div className="collapse-title text-xl font-medium">How can I place an order?</div>
