@@ -6,6 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hook/useAxiosPublic";
 import { AuthContext } from "../Routes/Provider/AuthProvider";
 
+// image related variable
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 const Register = () => {
     const axiosPublic = useAxiosPublic();
     const { user, setUser, createUser, loginWithGoogle, updateUserProfile } = useContext(AuthContext)
@@ -13,15 +16,23 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState('');
     const navigate = useNavigate();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        // image upload to imgbb and then get url
+        const imageFile = { image: data.photo[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+        const photoURL = res.data.data.display_url;
         createUser(data.email, data.password)
             .then(() => {
-                updateUserProfile(data.name, data.photo)
+                updateUserProfile(data.name, photoURL)
                     .then(() => {
                         const userInfo = {
                             name: data.name,
                             email: data.email,
-                            image: data.photo,
+                            image: photoURL,
                         }
                         // data save in server
                         axiosPublic.post('/users', userInfo)
@@ -29,7 +40,7 @@ const Register = () => {
                                 if (res.data.insertedId) {
                                     reset();
                                     toast.success('Register successfully!');
-                                    setUser({...user, displayName: data.name, photoURL: data.photo})
+                                    setUser({ ...user, displayName: data.name, photoURL: photoURL })
                                     navigate("/");
                                 }
                             })
@@ -84,7 +95,7 @@ const Register = () => {
                             {...register("name", { required: true })}
                             name="name"
                             placeholder="Type your email"
-                            className="input input-bordered w-full mt-2"
+                            className="input input-bordered w-full mt-2 bg-white"
                         />
                         {errors.name && <span className='text-red-500'>This field is required</span>}
                     </div>
@@ -94,11 +105,11 @@ const Register = () => {
                             <span className="text-red-500 text-base font-semibold"> *</span>
                         </label>
                         <input
-                            type="url"
+                            type="file"
                             {...register("photo", { required: true })}
                             name="photo"
                             placeholder="Type your email"
-                            className="input  w-full mt-2"
+                            className="border py-2 px-1 rounded-lg bg-base"
                         />
                         {errors.photo && <span className='text-red-500'>This field is required</span>}
                     </div>
@@ -112,7 +123,7 @@ const Register = () => {
                             {...register("email", { required: true })}
                             name="email"
                             placeholder="Type your email"
-                            className="input input-bordered w-full mt-2"
+                            className="input input-bordered w-full mt-2 bg-white"
                         />
                         {errors.email && <span className='text-red-500'>This field is required</span>}
                     </div>
@@ -125,14 +136,14 @@ const Register = () => {
                             minLength: 6,
                             maxLength: 100,
                             pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                        })} name="password" placeholder="password" className="input input-bordered" required />
+                        })} name="password" placeholder="password" className="input input-bordered bg-white" required />
                         {errors.password?.type === 'required' && <p className='text-red-600'>Password is required</p>}
                         {errors.password?.type === 'minLength' && <p className='text-red-600'>Password must be 6 characters</p>}
                         {errors.password?.type === 'maxLength' && <p className='text-red-600'>Password must be less than 10 characters</p>}
                         {errors.password?.type === 'pattern' && <p className='text-red-600'>Password must be 1 upper case 1 lower case 1 number and 1 special character</p>}
-                        <button type='button' onClick={() => setShowPassword(!showPassword)} className='btn btn-xs absolute top-12 right-4'>
+                        <button type='button' onClick={() => setShowPassword(!showPassword)} className='btn btn-xs absolute top-12 right-4 bg-white outline-none border-0 hover:bg-gray-300 text-black'>
                             {
-                                showPassword ? <FaEye size={14} /> : <FaEyeSlash size={14} />
+                                showPassword ? <FaEye size={15} /> : <FaEyeSlash size={15} />
                             }
                         </button>
                         {/* <div className='flex justify-between items-center'>

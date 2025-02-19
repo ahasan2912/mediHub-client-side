@@ -61,7 +61,7 @@ const Login = () => {
                             type="email"
                             name="email"
                             placeholder="Type your email"
-                            className="input input-bordered w-full mt-2"
+                            className="input input-bordered w-full mt-2 bg-white"
                             {...register("email", { required: true })}
                         />
                     </div>
@@ -69,8 +69,8 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type={showPassword ? 'text' : 'password'} {...register("password", { required: true })} name="password" placeholder="password" className="input input-bordered" required />
-                        <button type='button' onClick={() => setShowPassword(!showPassword)} className='btn btn-xs absolute top-12 right-4'>
+                        <input type={showPassword ? 'text' : 'password'} {...register("password", { required: true })} name="password" placeholder="password" className="input input-bordered bg-white" required />
+                        <button type='button' onClick={() => setShowPassword(!showPassword)} className='btn btn-xs absolute top-12 right-4 bg-white outline-none border-0 hover:bg-gray-300 text-black'>
                             {
                                 showPassword ? <FaEye size={14} /> : <FaEyeSlash size={14} />
                             }

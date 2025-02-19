@@ -42,11 +42,11 @@ const Footer = () => {
                     <div className="space-y-5">
                         <h3 className="text-white text-xl font-semibold mb-3">Subscribe to our newsletter</h3>
                         <div className="flex items-center gap-2 my-3">
-                            <div><FaWhatsappSquare className="text-green-400" size={40} /></div>
-                            <div><FaTelegram className="text-blue-500"size={40} /></div>
-                            <div><FaGithub className="" size={40} /></div>
-                            <div><FaLinkedin className="text-blue-500" size={40} /></div>
-                            <div><FaFacebook className="text-blue-500" size={40} /></div>
+                            <div><FaWhatsappSquare className="text-[#25D366]" size={40} /></div>
+                            <div><FaTelegram className="text-[#08c9fe]" size={40} /></div>
+                            <div><FaGithub className="text-[#08c9fe]" size={40} /></div>
+                            <div><FaLinkedin className="text-[#08c9fe]" size={40} /></div>
+                            <div><FaFacebook className="text-[#08c9fe]" size={40} /></div>
                         </div>
                         <div className="flex items-center space-x-2">
                             <input
@@ -54,7 +54,7 @@ const Footer = () => {
                                 placeholder="Enter your email"
                                 className="w-full px-3 py-2 text-gray-900 rounded-md focus:outline-none"
                             />
-                            <button className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600">
+                            <button className="bg-[#25A8D6] text-white px-4 py-2 rounded-md hover:bg-[#2d677c]">
                                 Subscribe
                             </button>
                         </div>
