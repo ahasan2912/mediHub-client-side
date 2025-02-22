@@ -56,7 +56,7 @@ const Sidebar = () => {
                     </button>
                 )}
                 <div className="hidden md:block">
-                    <Link className="flex items-center" to="/">
+                    <Link className="flex items-center" to="/dashboard">
                         <div>
                             <img src={logo} alt="" />
                         </div>

@@ -9,8 +9,8 @@ import { GiMedicines } from "react-icons/gi";
 import { GoListOrdered } from "react-icons/go";
 
 const Dashboard = () => {
-    const isAdmin = 0;
-    const isSeller = 10;
+    const isAdmin = 10;
+    const isSeller = 0;
     const isUser = 0;
     return (
         <div className="flex mt-16">
@@ -33,7 +33,7 @@ const Dashboard = () => {
                                 <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><IoBarChart size={20} />Sales Report</NavLink>
                             </li>
                             <li className="">
-                                <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><MdManageAccounts size={20} />Manage Banner</NavLink>
+                                <NavLink to='/dashboard/manageBanner' className="text-base font-semibold"><MdManageAccounts size={20} />Manage Banner</NavLink>
                             </li>
 
                         </>

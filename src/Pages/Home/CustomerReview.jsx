@@ -67,7 +67,7 @@ const CustomerReview = () => {
                             <h3 className='text-xl font-bold'>David Smith
                             </h3>
                             <p className='font-semibold text-base'>13 March, 2015</p>
-                            <p className="text-justify">MediHub has a wide range of medicines at affordable prices. Their customer support is also very responsive!</p>
+                            <p className="text-justify">Great service and fast delivery! I received my medicines on time, and the packaging was perfect. Highly recommended!</p>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ const CustomerReview = () => {
                             </div>
                             <h3 className='text-xl font-bold'>Emily Carter</h3>
                             <p className='font-semibold text-base'>05 March, 2015</p>
-                            <p className="text-justify">MediHub has a wide range of medicines at affordable prices. Their customer support is also very responsive!</p>
+                            <p className="text-justify">Great service and fast delivery! I received my medicines on time, and the packaging was perfect. Highly recommended!</p>
                         </div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@ const CustomerReview = () => {
                             </div>
                             <h3 className='text-xl font-bold'>Olivia Brown</h3>
                             <p className='font-semibold text-base'>2 February, 2024</p>
-                            <p className="text-justify">MediHub has a wide range of medicines at affordable prices. Their customer support is also very responsive!</p>
+                            <p className="text-justify">Great service and fast delivery! I received my medicines on time, and the packaging was perfect. Highly recommended!</p>
                         </div>
                     </div>
                 </div>
@@ -192,7 +192,7 @@ const CustomerReview = () => {
                             </div>
                             <h3 className='text-xl font-bold'>Sophia Martinez</h3>
                             <p className='font-semibold text-base'>27 February, 2024</p>
-                            <p className="text-justify">MediHub has a wide range of medicines at affordable prices. Their customer support is also very responsive!</p>
+                            <p className="text-justify">Great service and fast delivery! I received my medicines on time, and the packaging was perfect. Highly recommended!</p>
                         </div>
                     </div>
                 </div>

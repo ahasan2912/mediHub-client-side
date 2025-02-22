@@ -17,7 +17,7 @@ const PrivetRoute = ({ children }) => {
     return <Navigate to="/login" state={{from:location}} replace></Navigate>
 };
 PrivetRoute.propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.object.isRequired,
 }
 
 export default PrivetRoute;

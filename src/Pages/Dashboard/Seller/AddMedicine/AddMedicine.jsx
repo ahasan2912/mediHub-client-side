@@ -45,7 +45,7 @@ const AddMedicine = () => {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: `${data.name} is added to the menu`,
+                    title: 'Added new Medicine!',
                     showConfirmButton: false,
                     timer: 1000
                 });
