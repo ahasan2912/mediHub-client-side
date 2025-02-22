@@ -103,7 +103,7 @@ const Navbar = () => {
                                                 referrerPolicy='no-referrer'
                                                 alt='User Profile Photo'
                                                 src={user?.photoURL}
-                                                className="w-10 h-10 object-fill rounded-full my-anchor-element hover:animate-pulse"
+                                                className="w-9 h-9 object-fill rounded-full my-anchor-element hover:animate-pulse"
                                             />
                                             <Tooltip anchorSelect=".my-anchor-element" place="bottom">
                                                 {user?.displayName}

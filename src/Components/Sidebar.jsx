@@ -45,7 +45,7 @@ const Sidebar = () => {
     return (
         <nav
             className="fixed bg-[#25A8D6]  top-0 w-full shadow-md z-50 transition-all duration-300">
-            <div className="mx-auto flex justify-between items-center px-5 py-4 md:py-2 text-white">
+            <div className="mx-auto flex justify-between items-center px-5 py-[15px] md:py-2 text-white">
                 {/* Mobile Menu Button (Toggle Button) */}
                 {isMobile && (
                     <button
@@ -60,7 +60,7 @@ const Sidebar = () => {
                         <div>
                             <img src={logo} alt="" />
                         </div>
-                        <div className="text-xl md:text-2xl font-semibold">MediHub</div>
+                        <div className="text-xl md:text-2xl font-semibold">Dashboard</div>
                     </Link>
                 </div>
                 <div className="flex items-center gap-4">

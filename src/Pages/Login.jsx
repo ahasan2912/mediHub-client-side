@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../Hook/useAxiosPublic";
@@ -10,13 +10,16 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState('');
     const { register, handleSubmit } = useForm();
     const { userSignInEmail, loginWithGoogle } = useAuth();
-    const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
     const onSubmit = (data) => {
         userSignInEmail(data.email, data.password)
             .then(() => {
                 toast.success('Login successfully!');
-                navigate("/");
+                navigate(from, { replace: true });
             })
             .catch(err => {
                 toast.error(err.message);
@@ -36,8 +39,8 @@ const Login = () => {
                     .then(res => {
                         if (res.data.insertedId) {
                             toast.success('Login successfully!')
-                            navigate("/");
                         }
+                        navigate(from, { replace: true });
                     })
                     .catch(err => {
                         toast.error(err.message);

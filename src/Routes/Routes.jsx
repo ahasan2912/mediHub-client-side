@@ -8,6 +8,9 @@ import Shop from "../Pages/Shop/Shop";
 import Dashboard from "../Layout/Dashboard";
 import UserHome from "../Pages/Dashboard/User/UserHome";
 import AdminHome from "../Pages/Dashboard/Admin/AdminHome";
+import SellerHome from "../Pages/Dashboard/Seller/SellerHome";
+import AddMedicine from "../Pages/Dashboard/Seller/AddMedicine/AddMedicine";
+import PrivetRoute from "./PrivetRoute";
 
 
 export const router = createBrowserRouter([
@@ -40,7 +43,7 @@ export const router = createBrowserRouter([
     },
     {
       path: 'dashboard',
-      element: <Dashboard></Dashboard>,
+      element: <PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
       children: [
         {
           path: 'userHome',
@@ -49,6 +52,14 @@ export const router = createBrowserRouter([
         {
           path: 'adminHome',
           element: <AdminHome></AdminHome>
+        },
+        {
+          path: 'sellerHome',
+          element: <SellerHome></SellerHome>
+        },
+        {
+          path:'addMedicine',
+          element: <AddMedicine></AddMedicine>
         }
       ]
     }

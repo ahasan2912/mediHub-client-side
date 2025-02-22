@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 const ProductCard = ({ product }) => {
     const { discountPercentage, name, category, company, price, image } = product || {};
+    
     return (
         <div>
             <div className="relative shadow-lg rounded-lg p-4 transition-transform duration-300 hover:scale-105 border hover:border-blue-500">

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hook/useAxiosPublic";
 import { AuthContext } from "../Routes/Provider/AuthProvider";
 
@@ -15,6 +15,8 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [showPassword, setShowPassword] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const onSubmit = async (data) => {
         // image upload to imgbb and then get url
@@ -41,8 +43,8 @@ const Register = () => {
                                     reset();
                                     toast.success('Register successfully!');
                                     setUser({ ...user, displayName: data.name, photoURL: photoURL })
-                                    navigate("/");
                                 }
+                                navigate(from, { replace: true });
                             })
                     })
                     .catch(err => {
@@ -68,8 +70,8 @@ const Register = () => {
                     .then(res => {
                         if (res.data.insertedId) {
                             toast.success('Login successfully!')
-                            navigate("/");
                         }
+                        navigate(from, { replace: true });
                     })
                     .catch(err => {
                         toast.error(err.message);

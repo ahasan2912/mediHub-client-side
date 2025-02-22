@@ -3,9 +3,10 @@ import useProducts from "../../Hook/useProducts";
 import { GrCheckboxSelected } from "react-icons/gr";
 import { FaEye } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import LoadingSpinner from "../../Components/LoadingSpinner";
 const CategoriesShow = () => {
     const { category } = useParams();
-    const [products] = useProducts();
+    const [products, loading] = useProducts();
     const [needProducts, setNeedProducts] = useState([]);
     const product = products.filter(item => item.category === category);
     const count = product.length;
@@ -21,6 +22,11 @@ const CategoriesShow = () => {
             .then(data => setNeedProducts(data))
     }, [currentPage, itemPerPage, category])
 
+    // all show middle windows
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top of the page
+      }, []);
+
     const hanlgePrevPage = () => {
         if (currentPage > 0) {
             setCurrentPage(currentPage - 1);
@@ -31,6 +37,10 @@ const CategoriesShow = () => {
         if (currentPage < pages.length - 1) {
             setCurrentPage(currentPage + 1);
         }
+    }
+
+    if(loading){
+        return <LoadingSpinner></LoadingSpinner>
     }
     return (
         <div className="max-w-5xl mx-auto my-12">

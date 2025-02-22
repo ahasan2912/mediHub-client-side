@@ -15,13 +15,18 @@ const Shop = () => {
         fetch('http://localhost:5000/productsCount')
             .then(res => res.json())
             .then(data => setCount(data.count))
-    }, [])
+    }, []);
+
+    // all show middle windows
+    useEffect(() => {
+        window.scrollTo(0, 0); // Scroll to the top of the page
+    }, []);
 
     // pagination data send server
     useEffect(() => {
         fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}`)
-        .then(res => res.json())
-        .then(data => setProducts(data))
+            .then(res => res.json())
+            .then(data => setProducts(data))
     }, [currentPage, itemPerPage])
 
     const hanlgePrevPage = () => {
