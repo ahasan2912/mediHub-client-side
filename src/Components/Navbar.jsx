@@ -7,12 +7,14 @@ import { Tooltip } from "react-tooltip";
 import useAuth from "../Hook/useAuth";
 import { FaBagShopping } from "react-icons/fa6";
 import { RiLoginBoxLine } from "react-icons/ri";
+import useOrder from "../Hook/useOrder";
 
 const Navbar = () => {
     const { user, handleLogOut } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const toggleNavbar = () => setIsOpen(!isOpen);
+    const [orders] = useOrder();
     // Handle screen size changes
     useEffect(() => {
         const handleResize = () => {
@@ -68,10 +70,10 @@ const Navbar = () => {
                 <ul className="hidden md:flex items-center space-x-3 lg:space-x-7">
                     <NavLink to='/' className="font-semibold text-lg">Home</NavLink>
                     <NavLink to='/shop' className="font-semibold text-lg">Shop</NavLink>
-                    <NavLink to='/dashboard'>
+                    <NavLink to='/dashboard/orderList'>
                         <div className="border bg-white p-2 rounded-lg relative">
                             <FaShoppingBag size={20} className="text-[#30baec]" />
-                            <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">90</div>
+                            <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
                         </div>
                     </NavLink>
                     {!user && (

@@ -10,20 +10,19 @@ import banner4 from '../assets/content-19.webp';
 import banner5 from '../assets/content-21.webp';
 import banner6 from '../assets/content-22.webp';
 import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../Hook/useAxiosSecure';
-import LoadingSpinner from './LoadingSpinner';
+import useAxiosPublic from '../Hook/useAxiosPublic';
 const Banner = () => {
-    const axiosSecure = useAxiosSecure();
-    const { data: banners = [], isPending: loading } = useQuery({
+    const axiosPublic = useAxiosPublic();
+    const { data: banners = [] } = useQuery({
         queryKey: ['banners'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/banners');
+            const res = await axiosPublic.get('/banners');
             return res.data;
         }
     })
-    if (loading) {
+    /* if (loading) {
         return <LoadingSpinner></LoadingSpinner>
-    }
+    } */
     return (
         <div className='mt-16'>
             <Swiper

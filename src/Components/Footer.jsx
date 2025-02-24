@@ -2,9 +2,9 @@ import { FaFacebook, FaGithub, FaLinkedin, FaTelegram, FaWhatsappSquare } from "
 
 const Footer = () => {
     return (
-        <div>
+        <div className="">
             <footer className="bg-gray-900 text-gray-300 py-10">
-                <div className="md:w-[90%] mx-auto px-3 mt-24 sm:mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                <div className="w-full md:w-[90%] mx-auto px-3 sm:mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
                     {/* Solutions */}
                     <div>
                         <h3 className="text-white text-xl font-semibold mb-3">Solutions</h3>

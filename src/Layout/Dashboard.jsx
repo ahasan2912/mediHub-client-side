@@ -9,9 +9,9 @@ import { GiMedicines } from "react-icons/gi";
 import { GoListOrdered } from "react-icons/go";
 
 const Dashboard = () => {
-    const isAdmin = 10;
+    const isAdmin = 0;
     const isSeller = 0;
-    const isUser = 0;
+    const isUser = 10;
     return (
         <div className="flex mt-16">
             <div className="md:w-[28%] lg:w-[22%] xl:w-[18%] 2xl:w-[13%] bg-blue-500 min-h-screen">
@@ -64,7 +64,7 @@ const Dashboard = () => {
                         isUser ? <>
                             {/* Only User Manage this */}
                             <li className="">
-                                <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><GoListOrdered size={20} /> Order List</NavLink>
+                                <NavLink to='/dashboard/orderList' className="text-base font-semibold"><GoListOrdered size={20} /> Order List</NavLink>
                             </li>
                             <li className="">
                                 <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><RiSecurePaymentLine size={20} /> Payment History</NavLink>

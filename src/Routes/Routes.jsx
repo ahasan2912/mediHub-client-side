@@ -12,7 +12,8 @@ import SellerHome from "../Pages/Dashboard/Seller/SellerHome";
 import AddMedicine from "../Pages/Dashboard/Seller/AddMedicine/AddMedicine";
 import PrivetRoute from "./PrivetRoute";
 import ManageBanner from "../Pages/Dashboard/Admin/ManageBanner/ManageBanner";
-
+import OrderList from "../Pages/Dashboard/User/order/OrderList";
+import OrderDetails from "../Pages/Dashboard/User/order/OrderDetails";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ export const router = createBrowserRouter([
         element: <PrivetRoute><UserHome></UserHome></PrivetRoute>
       },
       {
+        path: 'orderList',
+        element: <PrivetRoute><OrderList></OrderList></PrivetRoute>
+      },
+      {
+        path: 'orderDetails/:id',
+        element: <PrivetRoute><OrderDetails></OrderDetails></PrivetRoute>
+      },
+      {
         path: 'adminHome',
         element: <PrivetRoute><AdminHome></AdminHome></PrivetRoute>
       },
@@ -65,7 +74,8 @@ export const router = createBrowserRouter([
       {
         path: 'addMedicine',
         element: <AddMedicine></AddMedicine>
-      }
+      },
+
     ]
   }
 ]);
