@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {  FaHome,FaMoon, FaShoppingBag, FaSun } from "react-icons/fa";
+import { FaHome, FaMoon, FaShoppingBag, FaSun } from "react-icons/fa";
 import logo from '../assets/medEasyIcon.svg'
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
@@ -8,6 +8,8 @@ import useAuth from "../Hook/useAuth";
 import { FaBagShopping } from "react-icons/fa6";
 import { RiLoginBoxLine } from "react-icons/ri";
 import useOrder from "../Hook/useOrder";
+import useRole from "../Hook/useRole";
+import { Helmet } from "react-helmet-async";
 
 const Navbar = () => {
     const { user, handleLogOut } = useAuth();
@@ -15,6 +17,7 @@ const Navbar = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const toggleNavbar = () => setIsOpen(!isOpen);
     const [orders] = useOrder();
+    const [role] = useRole();
     // Handle screen size changes
     useEffect(() => {
         const handleResize = () => {
@@ -47,6 +50,9 @@ const Navbar = () => {
     return (
         <nav
             className="fixed bg-[#25A8D6]  top-0 w-full shadow-md z-50 transition-all duration-300">
+            <Helmet>
+                <title>MediHub | Home</title>
+            </Helmet>
             <div className="mx-auto flex justify-between items-center px-5 py-4 md:py-2 text-white">
                 {/* Mobile Menu Button (Toggle Button) */}
                 {isMobile && (
@@ -70,12 +76,30 @@ const Navbar = () => {
                 <ul className="hidden md:flex items-center space-x-3 lg:space-x-7">
                     <NavLink to='/' className="font-semibold text-lg">Home</NavLink>
                     <NavLink to='/shop' className="font-semibold text-lg">Shop</NavLink>
-                    <NavLink to='/dashboard/orderList'>
-                        <div className="border bg-white p-2 rounded-lg relative">
-                            <FaShoppingBag size={20} className="text-[#30baec]" />
-                            <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
-                        </div>
-                    </NavLink>
+                    {
+                        role === 'Admin' ? <NavLink to='/dashboard/adminHome'>
+                            <div className="border bg-white p-2 rounded-lg relative">
+                                <FaShoppingBag size={20} className="text-[#30baec]" />
+                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
+                            </div>
+                        </NavLink> : ''
+                    }
+                    {
+                        role === 'Seller' ? <NavLink to='/dashboard/sellerHome'>
+                            <div className="border bg-white p-2 rounded-lg relative">
+                                <FaShoppingBag size={20} className="text-[#30baec]" />
+                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
+                            </div>
+                        </NavLink> : ''
+                    }
+                    {
+                        role === 'Customer' ? <NavLink to='/dashboard/orderList'>
+                            <div className="border bg-white p-2 rounded-lg relative">
+                                <FaShoppingBag size={20} className="text-[#30baec]" />
+                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
+                            </div>
+                        </NavLink> : ''
+                    }
                     {!user && (
                         <NavLink className='font-semibold text-lg' to='/login'>Join Us</NavLink>
                     )}
@@ -117,10 +141,10 @@ const Navbar = () => {
                                         className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-gray-400'
                                     >
                                         <li>
-                                            <Link to='/addFood'>Dashboard</Link>
+                                            <Link to='/dashboard'>Dashboard</Link>
                                         </li>
                                         <li>
-                                            <Link to='/mypostedfood' className='justify-between'>
+                                            <Link to='/dashboard/profile' className='justify-between'>
                                                 Update Profile
                                             </Link>
                                         </li>
@@ -197,8 +221,8 @@ const Navbar = () => {
                     <li className="border-b flex items-center justify-start px-1">
                         <RiLoginBoxLine className="text-2xl" />
                         {!user && (
-                        <NavLink className='font-semibold text-lg py-4' to='/login'>Join Us</NavLink>
-                    )}
+                            <NavLink className='font-semibold text-lg py-4' to='/login'>Join Us</NavLink>
+                        )}
                     </li>
                 </ul>
             </div>

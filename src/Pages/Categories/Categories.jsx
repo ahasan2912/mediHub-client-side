@@ -44,7 +44,7 @@ const Categories = () => {
     return (
         <div className="mt-10 lg:mt-20">
             <h1 className="text-2xl md:text-4xl font-bold uppercase">All Product Category</h1>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 my-7 sm:my-8">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 my-7 sm:my-8">
                 <ProdutsCatetory title={'OTC'} image={otc} product={oTC}></ProdutsCatetory>
                 <ProdutsCatetory title={'Baby Care'} image={baby} product={baby_Care}></ProdutsCatetory>
                 <ProdutsCatetory title={'Dental Care'} image={dental} product={dental_Care}></ProdutsCatetory>

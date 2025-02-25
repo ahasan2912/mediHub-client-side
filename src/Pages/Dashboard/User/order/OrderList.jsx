@@ -37,7 +37,7 @@ const OrderList = () => {
         });
     }
     return (
-        <div className="max-w-5xl mx-auto px-5 my-24">
+        <div className="max-w-5xl mx-auto px-5 my-16">
             <h1 className="text-4xl font-bold text-center">All Products Here</h1>
             <div className="overflow-x-auto">
                 <table className="table">

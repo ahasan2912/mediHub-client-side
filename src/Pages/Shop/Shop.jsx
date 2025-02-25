@@ -7,6 +7,7 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useOrder from "../../Hook/useOrder";
+import { Helmet } from "react-helmet-async";
 
 const Shop = () => {
     const [produts, setProducts] = useState([]);
@@ -106,6 +107,9 @@ const Shop = () => {
 
     return (
         <div className="max-w-5xl mx-auto px-5 my-24">
+            <Helmet>
+                <title>MediHub | Shop</title>
+            </Helmet>
             <h1 className="text-4xl font-bold text-center">All Products Here</h1>
             <div className="overflow-x-auto">
                 <table className="table">

@@ -14,6 +14,12 @@ import PrivetRoute from "./PrivetRoute";
 import ManageBanner from "../Pages/Dashboard/Admin/ManageBanner/ManageBanner";
 import OrderList from "../Pages/Dashboard/User/order/OrderList";
 import OrderDetails from "../Pages/Dashboard/User/order/OrderDetails";
+import Profile from "../Pages/Dashboard/Profile/Profile";
+import AdminRoute from "./AdminRoute";
+import SellerRoute from "./SellerRoute";
+import ManageUser from "../Pages/Dashboard/Admin/ManageUers/ManageUser";
+import PaymentManage from "../Pages/Dashboard/Admin/Payment/PaymentManage";
+import SalesReport from "../Pages/Dashboard/Admin/SalesReport/SalesReport";
 
 export const router = createBrowserRouter([
   {
@@ -61,20 +67,50 @@ export const router = createBrowserRouter([
       },
       {
         path: 'adminHome',
-        element: <PrivetRoute><AdminHome></AdminHome></PrivetRoute>
+        element: <PrivetRoute>
+          <AdminRoute><AdminHome></AdminHome></AdminRoute>
+        </PrivetRoute>
+      },
+      {
+        path: 'manageUsers',
+        element: <PrivetRoute>
+          <AdminRoute><ManageUser></ManageUser></AdminRoute>
+        </PrivetRoute>
       },
       {
         path: 'manageBanner',
-        element: <PrivetRoute><ManageBanner></ManageBanner></PrivetRoute>
+        element: <PrivetRoute>
+          <AdminRoute><ManageBanner></ManageBanner></AdminRoute>
+        </PrivetRoute>
+      },
+      {
+        path: 'salesReport',
+        element: <PrivetRoute>
+          <AdminRoute><SalesReport></SalesReport></AdminRoute>
+        </PrivetRoute>
+      },
+      {
+        path: 'paymentManage',
+        element: <PrivetRoute>
+          <AdminRoute><PaymentManage></PaymentManage></AdminRoute>
+        </PrivetRoute>
       },
       {
         path: 'sellerHome',
-        element: <SellerHome></SellerHome>
+        element: <PrivetRoute>
+          <SellerRoute><SellerHome></SellerHome></SellerRoute>
+        </PrivetRoute>
       },
       {
         path: 'addMedicine',
-        element: <AddMedicine></AddMedicine>
+        element: <PrivetRoute>
+          <SellerRoute><AddMedicine></AddMedicine></SellerRoute>
+        </PrivetRoute>
       },
+      {
+        path: 'profile',
+        element: <PrivetRoute><Profile></Profile></PrivetRoute>
+      }
 
     ]
   }

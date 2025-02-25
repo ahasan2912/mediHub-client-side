@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../Hook/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState('');
@@ -52,6 +53,9 @@ const Login = () => {
     }
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-purple-500 to-blue-500 py-32 pb-16">
+            <Helmet>
+                <title>MediHub | Login</title>
+            </Helmet>
             <div className="w-full max-w-sm bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-2xl font-semibold text-center text-gray-800">Login</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-4">

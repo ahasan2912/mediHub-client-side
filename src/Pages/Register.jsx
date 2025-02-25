@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hook/useAxiosPublic";
 import { AuthContext } from "../Routes/Provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 // image related variable
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -84,6 +85,9 @@ const Register = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-purple-500 to-blue-500 pt-32 pb-16">
+            <Helmet>
+                <title>MediHub | Register</title>
+            </Helmet>
             <div className="w-full max-w-sm bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-2xl font-semibold text-center text-gray-800">Register</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
@@ -178,3 +182,4 @@ const Register = () => {
 };
 
 export default Register;
+
