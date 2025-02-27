@@ -96,7 +96,7 @@ const Navbar = () => {
                         role === 'Customer' ? <NavLink to='/dashboard/orderList'>
                             <div className="border bg-white p-2 rounded-lg relative">
                                 <FaShoppingBag size={20} className="text-[#30baec]" />
-                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
+                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-6 h-6 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
                             </div>
                         </NavLink> : ''
                     }

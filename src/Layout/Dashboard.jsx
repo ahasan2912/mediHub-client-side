@@ -50,7 +50,10 @@ const Dashboard = () => {
                                 <NavLink to='/dashboard/addMedicine' className="text-base font-semibold"><IoMdAddCircleOutline size={20} />Add Medicine</NavLink>
                             </li>
                             <li className="">
-                                <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><GiMedicines size={20} />Manage Medicine</NavLink>
+                                <NavLink to='/dashboard/sellermanagemedicine' className="text-base font-semibold"><GiMedicines size={20} />Manage Medicine</NavLink>
+                            </li>
+                            <li className="">
+                                <NavLink to='/dashboard/sellermanageorder' className="text-base font-semibold"><FaUsers size={20} />Manage Order</NavLink>
                             </li>
                             <li className="">
                                 <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><RiSecurePaymentLine size={20} />Payement History</NavLink>
@@ -68,7 +71,7 @@ const Dashboard = () => {
                                 <NavLink to='/dashboard/orderList' className="text-base font-semibold"><GoListOrdered size={20} /> Order List</NavLink>
                             </li>
                             <li className="">
-                                <NavLink to='/login' className="text-base font-semibold"><RiSecurePaymentLine size={20} /> Payment History</NavLink>
+                                <NavLink to='/dashboard' className="text-base font-semibold"><RiSecurePaymentLine size={20} /> Payment History</NavLink>
                             </li>
                         </>
                             : <></>

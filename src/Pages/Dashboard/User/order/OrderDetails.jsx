@@ -58,7 +58,7 @@ const OrderDetails = () => {
                                 type="text"
                                 min={1}
                                 name="name"
-                                placeholder="Madicine price"
+                                placeholder="Customer Name"
                                 className="input input-bordered w-full mt-2 bg-white"
                             />
                         </div>

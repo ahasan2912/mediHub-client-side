@@ -8,8 +8,10 @@ import { MdOutlineContactPhone } from "react-icons/md";
 import { Link, NavLink } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import useAuth from "../Hook/useAuth";
+import useRole from "../Hook/useRole";
 const Sidebar = () => {
     const { user, handleLogOut } = useAuth();
+    const [role] = useRole();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const toggleNavbar = () => setIsOpen(!isOpen);
@@ -56,12 +58,30 @@ const Sidebar = () => {
                     </button>
                 )}
                 <div className="hidden md:block">
-                    <Link className="flex items-center" to="/dashboard">
-                        <div>
-                            <img src={logo} alt="" />
-                        </div>
-                        <div className="text-xl md:text-2xl font-semibold">Dashboard</div>
-                    </Link>
+                    {
+                        role === 'Admin' ? <Link className="flex items-center" to="/dashboard/adminHome">
+                            <div>
+                                <img src={logo} alt="" />
+                            </div>
+                            <div className="text-xl md:text-2xl font-semibold">Dashboard</div>
+                        </Link> : ''
+                    }
+                    {
+                        role === 'Seller' ? <Link className="flex items-center" to="/dashboard/sellerHome">
+                            <div>
+                                <img src={logo} alt="" />
+                            </div>
+                            <div className="text-xl md:text-2xl font-semibold">Dashboard</div>
+                        </Link> : ''
+                    }
+                    {
+                        role === 'Customer' ? <Link className="flex items-center" to="/dashboard/orderList">
+                            <div>
+                                <img src={logo} alt="" />
+                            </div>
+                            <div className="text-xl md:text-2xl font-semibold">Dashboard</div>
+                        </Link> : ''
+                    }
                 </div>
                 <div className="flex items-center gap-4">
                     {/* NaverEnd */}
@@ -92,10 +112,24 @@ const Sidebar = () => {
                                         className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-gray-400'
                                     >
                                         <li>
-                                            <Link to='/addFood'>Dashboard</Link>
+                                            {
+                                                role === 'Admin' ? <Link className="flex items-center" to="/dashboard/adminHome">
+                                                    <div>Dashboard</div>
+                                                </Link> : ''
+                                            }
+                                            {
+                                                role === 'Seller' ? <Link className="flex items-center" to="/dashboard/sellerHome">
+                                                    <div>Dashboard</div>
+                                                </Link> : ''
+                                            }
+                                            {
+                                                role === 'Customer' ? <Link className="flex items-center" to="/dashboard/orderList">
+                                                    <div>Dashboard</div>
+                                                </Link> : ''
+                                            }
                                         </li>
                                         <li>
-                                            <Link to='/mypostedfood' className='justify-between'>
+                                            <Link to='/dashboard/profile' className='justify-between'>
                                                 Update Profile
                                             </Link>
                                         </li>

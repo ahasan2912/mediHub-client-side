@@ -62,7 +62,7 @@ const ManageUser = () => {
                 <h1 className="text-2xl sm:text-4xl font-semibold">Total Users: {users?.length}</h1>
             </div>
             <div className="overflow-x-auto">
-                <table className="table">
+                <table className="table border mt-8">
                     {/* head */}
                     <thead>
                         <tr>
@@ -80,7 +80,7 @@ const ManageUser = () => {
                             <td className="text-base font-bold">{idx + 1}</td>
                             <td>
                                 <img
-                                    className="w-16 h-14 rounded-lg object-fill"
+                                    className="w-14 h-12 rounded-lg object-fill"
                                     src={user?.image}
                                     alt="Avatar Tailwind CSS Component" />
                             </td>
@@ -95,7 +95,7 @@ const ManageUser = () => {
                                 </select>
                             </td>
                             <td>
-                                <button onClick={() => handleDeleteUser(user?._id)} className="btn btn-lg btn-ghost">
+                                <button onClick={() => handleDeleteUser(user?._id)} className="btn btn-ghost">
                                     <MdDelete className='text-blue-400 text-2xl' />
                                 </button>
                             </td>

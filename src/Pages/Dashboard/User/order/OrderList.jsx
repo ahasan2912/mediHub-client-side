@@ -46,7 +46,8 @@ const OrderList = () => {
                         <tr>
                             <th className="text-base font-bold" >Serial</th>
                             <th className="text-base font-bold" >Photo</th>
-                            <th className="text-base font-bold" >Name</th>
+                            <th className="text-base font-bold" >Medicine Name</th>
+                            <th className="text-base font-bold" >Customer Name</th>
                             <th className="text-base font-bold" >Price</th>
                             <th className="text-base font-bold" >Add To Cart</th>
                             <th className="text-base font-bold" >Details</th>
@@ -62,6 +63,7 @@ const OrderList = () => {
                                     alt="Avatar Tailwind CSS Component" />
                             </td>
                             <td className="text-base font-bold"> {item?.name} </td>
+                            <td className="text-base font-bold"> {item?.customer?.name} </td>
                             <td className="text-base font-bold">${item?.price}</td>
                             <td>
                                 <Link to={`/dashboard/orderDetails/${item?._id}`}>

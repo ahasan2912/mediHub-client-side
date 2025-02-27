@@ -20,6 +20,9 @@ import SellerRoute from "./SellerRoute";
 import ManageUser from "../Pages/Dashboard/Admin/ManageUers/ManageUser";
 import PaymentManage from "../Pages/Dashboard/Admin/Payment/PaymentManage";
 import SalesReport from "../Pages/Dashboard/Admin/SalesReport/SalesReport";
+import SellerManageMedicine from "../Pages/Dashboard/Seller/SellerManageMedicine.jsx/SellerManageMedicine";
+import SellerProductUpdate from "../Pages/Dashboard/Seller/Product Update/SellerProductUpdate";
+import SellerManageOrder from "../Pages/Dashboard/Seller/ManageOrder/SellerManageOrder";
 
 export const router = createBrowserRouter([
   {
@@ -105,6 +108,30 @@ export const router = createBrowserRouter([
         path: 'addMedicine',
         element: <PrivetRoute>
           <SellerRoute><AddMedicine></AddMedicine></SellerRoute>
+        </PrivetRoute>
+      },
+      {
+        path: 'sellermanagemedicine',
+        element: <PrivetRoute>
+          <SellerRoute>
+            <SellerManageMedicine></SellerManageMedicine>
+          </SellerRoute>
+        </PrivetRoute>
+      },
+      {
+        path: 'sellermanageorder',
+        element: <PrivetRoute>
+          <SellerRoute>
+            <SellerManageOrder></SellerManageOrder>
+          </SellerRoute>
+        </PrivetRoute>
+      },
+      {
+        path: 'sellerupdateproduct/:id',
+        element: <PrivetRoute>
+          <SellerRoute>
+            <SellerProductUpdate></SellerProductUpdate>
+          </SellerRoute>
         </PrivetRoute>
       },
       {
