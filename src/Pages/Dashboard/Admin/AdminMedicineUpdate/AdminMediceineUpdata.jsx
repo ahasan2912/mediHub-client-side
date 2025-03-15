@@ -1,19 +1,27 @@
+//AdminMediceineUpdata
+
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import useAxiosPublic from "../../../../Hook/useAxiosPublic";
-import useAuth from "../../../../Hook/useAuth";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-const AddMedicine = () => {
+const AdminMediceineUpdata = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const axiosSecure = useAxiosSecure();
     const axiosPublic = useAxiosPublic();
-    const { user } = useAuth();
     const navigate = useNavigate();
+    const { id } = useParams();
 
+    const { data: product = {}, refetch } = useQuery({
+        queryKey: ['product', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/product/${id}`);
+            return res.data;
+        }
+    })
     const onSubmit = async (data) => {
         // image upload to imabb then get url
         const imageFile = { image: data.photo[0] }
@@ -22,15 +30,8 @@ const AddMedicine = () => {
                 'content-type': 'multipart/form-data'
             }
         });
-        //seller info
-        const seller = {
-            name: user?.displayName,
-            image: user?.photoURL,
-            email: user?.email,
-        }
         if (res.data.success) {
-            // now send the menu item data to the server with the image 
-            const product = {
+            const updateProduct = {
                 name: data.name,
                 image: res.data.data.display_url,
                 category: data.category,
@@ -38,10 +39,9 @@ const AddMedicine = () => {
                 description: data.description,
                 price: data.price,
                 quantity: data.quantity,
-                seller
             }
-            const products = await axiosSecure.post('/products', product);
-            if (products.data.insertedId) {
+            const update = await axiosSecure.patch(`/admin/product/${product?._id}`, updateProduct);
+            if (update.data.modifiedCount) {
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -49,15 +49,16 @@ const AddMedicine = () => {
                     showConfirmButton: false,
                     timer: 1000
                 });
+                refetch();
                 reset();
-                navigate('/dashboard/sellermanagemedicine')
+                navigate('/dashboard/adminManageMedicine')
             }
         }
     }
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-blue-300 to-blue-500  py-16 px-4">
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-blue-300 to-blue-500  pb-16 px-4">
             <div className="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-3xl font-semibold text-center text-gray-800">Add Medicine </h2>
+                <h2 className="text-3xl font-semibold text-center text-gray-800">Update Medicine </h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
                     <div className="flex gap-4 items-center">
                         <div className="form-control mb-4 w-full">
@@ -67,7 +68,8 @@ const AddMedicine = () => {
                             </label>
                             <input
                                 type="text"
-                                {...register("name", { required: true })}
+                                {...register("name")}
+                                defaultValue={product?.name}
                                 name="name"
                                 placeholder="Madicine Name"
                                 className="input input-bordered w-full mt-2 bg-white"
@@ -95,8 +97,8 @@ const AddMedicine = () => {
                                 <span>Category</span>
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
-                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('category', { required: true })}>
-                                <option disabled value={"default"}>Select category</option>
+                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('category')}>
+                                <option disabled value={product?.category}>Select category</option>
                                 <option>OTC</option>
                                 <option>Syrup</option>
                                 <option>Injection</option>
@@ -115,8 +117,8 @@ const AddMedicine = () => {
                                 <span>Company</span>
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
-                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('company', { required: true })}>
-                                <option disabled value="default">Select company</option>
+                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('company')}>
+                                <option disabled value={product?.company}>Select company</option>
                                 <option>Renata Limited</option>
                                 <option>Radiant Pharmaceuticals Ltd</option>
                                 <option>Eskayef Bangladesh Ltd</option>
@@ -136,7 +138,10 @@ const AddMedicine = () => {
                             <span>Description</span>
                             <span className="text-red-500 text-base font-semibold"> *</span>
                         </label>
-                        <textarea {...register('description', { required: true })} className="textarea textarea-bordered bg-white" placeholder="Detils Description"></textarea>
+                        <textarea
+                            {...register('description')} className="textarea textarea-bordered bg-white"
+                            defaultValue={product?.description}
+                            placeholder="Detils Description"></textarea>
                         {errors.description && <span className='text-red-500'>This field is required</span>}
                     </div>
                     <div className="flex gap-4 items-center">
@@ -147,8 +152,9 @@ const AddMedicine = () => {
                             </label>
                             <input
                                 type="number"
+                                defaultValue={product?.price}
                                 min={1}
-                                {...register("price", { required: true })}
+                                {...register("price")}
                                 name="price"
                                 placeholder="Madicine price"
                                 className="input input-bordered w-full mt-2 bg-white"
@@ -162,8 +168,9 @@ const AddMedicine = () => {
                             </label>
                             <input
                                 type="number"
+                                defaultValue={product?.quantity}
                                 min={1}
-                                {...register("quantity", { required: true })}
+                                {...register("quantity")}
                                 name="quantity"
                                 placeholder="Madicine Quantity"
                                 className="input input-bordered py-2 w-full mt-2 bg-white"
@@ -173,9 +180,9 @@ const AddMedicine = () => {
                     </div>
                     <button
                         type="submit"
-                        className="btn btn-primary w-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-500 text-white"
+                        className="btn btn-primary w-full bg-gradient-to-r from-blue-500 to-blue-500 text-white"
                     >
-                        Add Medicine
+                        Update Medicine
                     </button>
                 </form>
             </div>
@@ -183,4 +190,4 @@ const AddMedicine = () => {
     );
 };
 
-export default AddMedicine;
+export default AdminMediceineUpdata;

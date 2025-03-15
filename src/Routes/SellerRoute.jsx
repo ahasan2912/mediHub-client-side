@@ -11,7 +11,7 @@ const SellerRoute = ({ children }) => {
     if(role === 'Seller'){
         return children;
     }
-    return <Navigate to='/dashboard' replace='true'></Navigate>
+    return <Navigate to='/' replace='true'></Navigate>
 };
 SellerRoute.propTypes = {
     children: PropTypes.element.isRequired

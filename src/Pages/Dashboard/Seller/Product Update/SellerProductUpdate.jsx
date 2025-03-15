@@ -13,7 +13,7 @@ const SellerProductUpdate = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { data: product = {} } = useQuery({
+    const { data: product = {}, refetch } = useQuery({
         queryKey: ['product', id],
         queryFn: async () => {
             const res = await axiosSecure.get(`/seller/product/${id}`);
@@ -47,6 +47,7 @@ const SellerProductUpdate = () => {
                     showConfirmButton: false,
                     timer: 1000
                 });
+                refetch();
                 reset();
                 navigate('/dashboard/sellermanagemedicine')
             }
@@ -55,7 +56,7 @@ const SellerProductUpdate = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-blue-300 to-blue-500  pb-16 px-4">
             <div className="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-3xl font-semibold text-center text-gray-800">Add Medicine </h2>
+                <h2 className="text-3xl font-semibold text-center text-gray-800">Update Medicine </h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
                     <div className="flex gap-4 items-center">
                         <div className="form-control mb-4 w-full">
@@ -65,7 +66,7 @@ const SellerProductUpdate = () => {
                             </label>
                             <input
                                 type="text"
-                                {...register("name", { required: true })}
+                                {...register("name")}
                                 defaultValue={product?.name}
                                 name="name"
                                 placeholder="Madicine Name"
@@ -94,7 +95,7 @@ const SellerProductUpdate = () => {
                                 <span>Category</span>
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
-                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('category', { required: true })}>
+                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('category')}>
                                 <option disabled value={product?.category}>Select category</option>
                                 <option>OTC</option>
                                 <option>Syrup</option>
@@ -114,7 +115,7 @@ const SellerProductUpdate = () => {
                                 <span>Company</span>
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
-                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('company', { required: true })}>
+                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('company')}>
                                 <option disabled value={product?.company}>Select company</option>
                                 <option>Renata Limited</option>
                                 <option>Radiant Pharmaceuticals Ltd</option>
@@ -136,7 +137,7 @@ const SellerProductUpdate = () => {
                             <span className="text-red-500 text-base font-semibold"> *</span>
                         </label>
                         <textarea
-                            {...register('description', { required: true })} className="textarea textarea-bordered bg-white"
+                            {...register('description')} className="textarea textarea-bordered bg-white"
                             defaultValue={product?.description}
                             placeholder="Detils Description"></textarea>
                         {errors.description && <span className='text-red-500'>This field is required</span>}
@@ -151,7 +152,7 @@ const SellerProductUpdate = () => {
                                 type="number"
                                 defaultValue={product?.price}
                                 min={1}
-                                {...register("price", { required: true })}
+                                {...register("price")}
                                 name="price"
                                 placeholder="Madicine price"
                                 className="input input-bordered w-full mt-2 bg-white"
@@ -167,7 +168,7 @@ const SellerProductUpdate = () => {
                                 type="number"
                                 defaultValue={product?.quantity}
                                 min={1}
-                                {...register("quantity", { required: true })}
+                                {...register("quantity")}
                                 name="quantity"
                                 placeholder="Madicine Quantity"
                                 className="input input-bordered py-2 w-full mt-2 bg-white"
@@ -177,7 +178,7 @@ const SellerProductUpdate = () => {
                     </div>
                     <button
                         type="submit"
-                        className="btn btn-primary w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white"
+                        className="btn btn-primary w-full bg-gradient-to-r from-blue-500 to-blue-500 text-white"
                     >
                         Update Medicine
                     </button>

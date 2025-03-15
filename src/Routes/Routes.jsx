@@ -19,10 +19,15 @@ import AdminRoute from "./AdminRoute";
 import SellerRoute from "./SellerRoute";
 import ManageUser from "../Pages/Dashboard/Admin/ManageUers/ManageUser";
 import PaymentManage from "../Pages/Dashboard/Admin/Payment/PaymentManage";
-import SalesReport from "../Pages/Dashboard/Admin/SalesReport/SalesReport";
 import SellerManageMedicine from "../Pages/Dashboard/Seller/SellerManageMedicine.jsx/SellerManageMedicine";
 import SellerProductUpdate from "../Pages/Dashboard/Seller/Product Update/SellerProductUpdate";
 import SellerManageOrder from "../Pages/Dashboard/Seller/ManageOrder/SellerManageOrder";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory";
+import AboutUs from "../Pages/Dashboard/AboutUS/AboutUs";
+import SellerPaymentHistory from "../Pages/Dashboard/Seller/SellerManageMedicine.jsx/SellerPaymentHistory";
+import ManageMedicine from "../Pages/Dashboard/Admin/ManageMedicine/ManageMedicine";
+import AdminMediceineUpdata from "../Pages/Dashboard/Admin/AdminMedicineUpdate/AdminMediceineUpdata";
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +54,11 @@ export const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register></Register>
-      }
+      },
+      {
+        path: '/about-us',
+        element: <AboutUs></AboutUs>
+      },
     ]
   },
   {
@@ -75,6 +84,22 @@ export const router = createBrowserRouter([
         </PrivetRoute>
       },
       {
+        path: 'adminManageMedicine',
+        element: <PrivetRoute>
+          <AdminRoute>
+            <ManageMedicine></ManageMedicine>
+          </AdminRoute>
+        </PrivetRoute>
+      },
+      {
+        path: 'adminupdatproduct/:id',
+        element: <PrivetRoute>
+          <AdminRoute>
+            <AdminMediceineUpdata></AdminMediceineUpdata>
+          </AdminRoute>
+        </PrivetRoute>
+      },
+      {
         path: 'manageUsers',
         element: <PrivetRoute>
           <AdminRoute><ManageUser></ManageUser></AdminRoute>
@@ -84,12 +109,6 @@ export const router = createBrowserRouter([
         path: 'manageBanner',
         element: <PrivetRoute>
           <AdminRoute><ManageBanner></ManageBanner></AdminRoute>
-        </PrivetRoute>
-      },
-      {
-        path: 'salesReport',
-        element: <PrivetRoute>
-          <AdminRoute><SalesReport></SalesReport></AdminRoute>
         </PrivetRoute>
       },
       {
@@ -137,6 +156,20 @@ export const router = createBrowserRouter([
       {
         path: 'profile',
         element: <PrivetRoute><Profile></Profile></PrivetRoute>
+      },
+      {
+        path: 'payment',
+        element: <PrivetRoute><Payment></Payment></PrivetRoute>
+      },
+      {
+        path: 'paymentHistory',
+        element: <PrivetRoute><PaymentHistory></PaymentHistory></PrivetRoute>
+      },
+      {
+        path: 'sellerPaymentHistory',
+        element: <PrivetRoute>
+          <SellerPaymentHistory></SellerPaymentHistory>
+        </PrivetRoute>
       }
 
     ]

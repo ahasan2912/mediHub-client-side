@@ -11,7 +11,7 @@ const AdminRoute = ({ children }) => {
     if(role === 'Admin'){
         return children;
     }
-    return <Navigate to='/dashboard' replace='true'></Navigate>
+    return <Navigate to='/' replace='true'></Navigate>
 };
 AdminRoute.propTypes = {
     children: PropTypes.element.isRequired

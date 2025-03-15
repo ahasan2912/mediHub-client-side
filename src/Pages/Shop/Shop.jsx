@@ -8,6 +8,9 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useOrder from "../../Hook/useOrder";
 import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../../Components/LoadingSpinner";
+import useRole from "../../Hook/useRole";
+import toast from "react-hot-toast";
 
 const Shop = () => {
     const [produts, setProducts] = useState([]);
@@ -22,7 +25,8 @@ const Shop = () => {
     const itemPerPage = 10;
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
-    const [, refetch] = useOrder();
+    const [, refetch, loading] = useOrder();
+    const [role] = useRole();
 
     useEffect(() => {
         fetch('http://localhost:5000/productsCount')
@@ -60,6 +64,12 @@ const Shop = () => {
 
     // handleAddToCart
     const handleAddToCart = (medicine) => {
+        if (role === 'Admin') {
+            return toast.error(`Admin Can not Order any Products`)
+        }
+        if (role === 'Seller') {
+            return toast.error(`Seller Can not Order any Products`)
+        }
         const customer = {
             name: user?.displayName,
             photo: user?.photoURL,
@@ -71,7 +81,7 @@ const Shop = () => {
                 medicineId: medicine?._id,
                 name: medicine?.name,
                 image: medicine?.image,
-                price: medicine?.price,
+                price: parseInt(medicine?.price),
                 quantity: 1,
                 seller: medicine?.seller?.email,
                 customer
@@ -103,6 +113,10 @@ const Shop = () => {
                 }
             });
         }
+    }
+
+    if (loading) {
+        return <LoadingSpinner></LoadingSpinner>
     }
 
     return (
@@ -137,7 +151,8 @@ const Shop = () => {
                             <td className="text-base font-bold"> {item?.name} </td>
                             <td className="text-base font-bold">${item?.price}</td>
                             <td>
-                                <button onClick={() => handleAddToCart(item)} className="btn btn-lg btn-ghost">
+                                <button
+                                    onClick={() => handleAddToCart(item)} className="btn btn-ghost">
                                     <GrCheckboxSelected className='text-blue-400 text-2xl' />
                                 </button>
                             </td>

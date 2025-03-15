@@ -3,7 +3,6 @@ import Sidebar from "../Components/Sidebar";
 import { FaEdit, FaHome, FaUsers } from "react-icons/fa";
 import { RiAdvertisementFill, RiLoginBoxLine, RiSecurePaymentLine } from "react-icons/ri";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { IoBarChart } from "react-icons/io5";
 import { MdManageAccounts } from "react-icons/md";
 import { GiMedicines } from "react-icons/gi";
 import { GoListOrdered } from "react-icons/go";
@@ -25,13 +24,13 @@ const Dashboard = () => {
                                 <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><FaHome size={20} />Admin Home</NavLink>
                             </li>
                             <li className="">
+                                <NavLink to='/dashboard/adminManageMedicine' className="text-base font-semibold"><FaHome size={20} />Manage Medicine</NavLink>
+                            </li>
+                            <li className="">
                                 <NavLink to='/dashboard/manageUsers' className="text-base font-semibold"><FaUsers size={20} />Manage Users</NavLink>
                             </li>
                             <li className="">
                                 <NavLink to='/dashboard/paymentManage' className="text-base font-semibold"><RiSecurePaymentLine size={20} />Payement Manage</NavLink>
-                            </li>
-                            <li className="">
-                                <NavLink to='/dashboard/salesReport' className="text-base font-semibold"><IoBarChart size={20} />Sales Report</NavLink>
                             </li>
                             <li className="">
                                 <NavLink to='/dashboard/manageBanner' className="text-base font-semibold"><MdManageAccounts size={20} />Manage Banner</NavLink>
@@ -56,7 +55,7 @@ const Dashboard = () => {
                                 <NavLink to='/dashboard/sellermanageorder' className="text-base font-semibold"><FaUsers size={20} />Manage Order</NavLink>
                             </li>
                             <li className="">
-                                <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><RiSecurePaymentLine size={20} />Payement History</NavLink>
+                                <NavLink to='/dashboard/sellerPaymentHistory' className="text-base font-semibold"><RiSecurePaymentLine size={20} />Payement History</NavLink>
                             </li>
                             <li className="">
                                 <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><RiAdvertisementFill size={20} />Advertisment</NavLink>
@@ -71,7 +70,7 @@ const Dashboard = () => {
                                 <NavLink to='/dashboard/orderList' className="text-base font-semibold"><GoListOrdered size={20} /> Order List</NavLink>
                             </li>
                             <li className="">
-                                <NavLink to='/dashboard' className="text-base font-semibold"><RiSecurePaymentLine size={20} /> Payment History</NavLink>
+                                <NavLink to='/dashboard/paymentHistory' className="text-base font-semibold"><RiSecurePaymentLine size={20} /> Payment History</NavLink>
                             </li>
                         </>
                             : <></>
@@ -81,7 +80,7 @@ const Dashboard = () => {
                         <NavLink to='/' className="text-base font-semibold"><FaHome size={20} />Home</NavLink>
                     </li>
                     <li className="">
-                        <NavLink to='/' className="text-base font-semibold"><FaUsers size={20} />About Us</NavLink>
+                        <NavLink to='/about-us' className="text-base font-semibold"><FaUsers size={20} />About Us</NavLink>
                     </li>
                 </ul>
                 <ul className="menu hidden md:block px-1 md:px-2 fixed bottom-0 space-y-2 text-white">

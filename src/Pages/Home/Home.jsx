@@ -3,8 +3,8 @@ import Categories from "../Categories/Categories";
 import Accordion from "./Accordion";
 import CustomerReview from "./CustomerReview";
 import ReviewMobile from "./ReviewMobile";
-
 const Home = () => {
+    
     return (
         <div className="md:w-[90%] mx-auto px-3 mt-24 sm:mt-5 ">
             <Banner></Banner>

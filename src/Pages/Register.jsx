@@ -84,7 +84,7 @@ const Register = () => {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-purple-500 to-blue-500 pt-32 pb-16">
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-blue-300 to-blue-500 pt-32 pb-16">
             <Helmet>
                 <title>MediHub | Register</title>
             </Helmet>
@@ -161,7 +161,7 @@ const Register = () => {
                     </div>
                     <button
                         type="submit"
-                        className="btn btn-primary w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white"
+                        className="btn btn-primary w-full bg-gradient-to-r from-blue-500 to-blue-500 text-white"
                     >
                         REGISTER
                     </button>
@@ -171,7 +171,7 @@ const Register = () => {
                     <button
                         type="submit"
                         onClick={hadleGoogleLogin}
-                        className="btn btn-primary w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white">With Google</button>
+                        className="btn btn-primary w-full bg-gradient-to-r from-blue-500 to-blue-500 text-white">With Google</button>
                 </div>
                 <div className="mt-4 text-center">
                     <Link to='/login' className="text-blue-600 hover:underline">You have already account? Loign</Link>

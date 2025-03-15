@@ -14,10 +14,10 @@ import DiscountCart from "./DiscountCart";
 import DiscountCategoris from "./DiscountCategoris";
 import MarqueeCart from "./MarqueeCart";
 import ProdutsCatetory from "./ProdutsCatetory";
-import LoadingSpinner from "../../Components/LoadingSpinner";
+
 
 const Categories = () => {
-    const [products, loading] = useProducts();
+    const [products] = useProducts();
     const baby_Care = products.filter(item => item.category === 'Baby Care');
     const dental_Care = products.filter(item => item.category === 'Dental Care');
     const diabetic_Care = products.filter(item => item.category === 'Diabetic Care');
@@ -38,9 +38,7 @@ const Categories = () => {
 
         return () => clearInterval(intervalId)
     }, []);
-    if (loading) {
-        return <LoadingSpinner></LoadingSpinner>
-    }
+    
     return (
         <div className="mt-10 lg:mt-20">
             <h1 className="text-2xl md:text-4xl font-bold uppercase">All Product Category</h1>

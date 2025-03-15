@@ -162,10 +162,10 @@ const Sidebar = () => {
                 <div className="absolute top-4 text-2xl font-bold px-1 text-white">Dashboard</div>
                 <button
                     onClick={toggleNavbar}
-                    className="absolute top-5 right-4 text-2xl focus:outline-none text-white">
+                    className="absolute top-5 right-1 text-2xl focus:outline-none text-white">
                     <FiX className="text-3xl" />
                 </button>
-                <ul className="flex flex-col mt-[70px] text-black">
+                <ul className="flex flex-col mt-[80px] text-black">
                     <li className="border-y flex items-center justify-start px-4">
                         <NavLink
                             to="/"

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaHome, FaMoon, FaShoppingBag, FaSun } from "react-icons/fa";
+import { FaHome, FaMoon, FaRegPlusSquare, FaShoppingBag, FaSun } from "react-icons/fa";
 import logo from '../assets/medEasyIcon.svg'
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
@@ -10,6 +10,8 @@ import { RiLoginBoxLine } from "react-icons/ri";
 import useOrder from "../Hook/useOrder";
 import useRole from "../Hook/useRole";
 import { Helmet } from "react-helmet-async";
+import { MdDashboard } from "react-icons/md";
+import { BsCartCheckFill } from "react-icons/bs";
 
 const Navbar = () => {
     const { user, handleLogOut } = useAuth();
@@ -77,19 +79,13 @@ const Navbar = () => {
                     <NavLink to='/' className="font-semibold text-lg">Home</NavLink>
                     <NavLink to='/shop' className="font-semibold text-lg">Shop</NavLink>
                     {
-                        role === 'Admin' ? <NavLink to='/dashboard/adminHome'>
-                            <div className="border bg-white p-2 rounded-lg relative">
-                                <FaShoppingBag size={20} className="text-[#30baec]" />
-                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
-                            </div>
+                        role === 'Admin' ? <NavLink to='/dashboard/adminHome' className='font-semibold text-lg'>
+                            Dashboard
                         </NavLink> : ''
                     }
                     {
-                        role === 'Seller' ? <NavLink to='/dashboard/sellerHome'>
-                            <div className="border bg-white p-2 rounded-lg relative">
-                                <FaShoppingBag size={20} className="text-[#30baec]" />
-                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">{orders.length}</div>
-                            </div>
+                        role === 'Seller' ? <NavLink to='/dashboard/sellerHome' className='font-semibold text-lg'>
+                            Dashboard
                         </NavLink> : ''
                     }
                     {
@@ -103,6 +99,7 @@ const Navbar = () => {
                     {!user && (
                         <NavLink className='font-semibold text-lg' to='/login'>Join Us</NavLink>
                     )}
+                    <NavLink to='/about-us' className="font-semibold text-lg">About Us</NavLink>
                     <NavLink className="w-60">
                         <select defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-blue-300 w-full">
                             <option disabled value="default">Select Language</option>
@@ -141,7 +138,7 @@ const Navbar = () => {
                                         className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-gray-400'
                                     >
                                         <li>
-                                            <Link to='/dashboard'>Dashboard</Link>
+                                            <Link to='/dashboard/adminHome'>Dashboard</Link>
                                         </li>
                                         <li>
                                             <Link to='/dashboard/profile' className='justify-between'>
@@ -180,11 +177,11 @@ const Navbar = () => {
                     className="absolute top-5 right-4 text-2xl focus:outline-none text-white">
                     <FiX className="text-3xl" />
                 </button>
-                <ul className="flex flex-col mt-[72px] text-white">
+                <ul className="flex flex-col mt-[78px] text-white">
                     <li className="border-y flex items-center justify-start px-1">
                         <NavLink
                             to="/"
-                            className="py-4 px-1 text-lg hover:bg-gray-200 flex items-center gap-1"
+                            className="py-4 px-1 text-lg hover:bg-gray-200 flex items-center gap-1 font-semibold"
                             onClick={toggleNavbar}>
                             <FaHome className="text-lg" />
                             Home
@@ -193,21 +190,42 @@ const Navbar = () => {
                     <li className="border-b flex items-center justify-start px-1">
                         <NavLink
                             to="/shop"
-                            className="flex items-center gap-1 py-4 px-1 text-lg hover:bg-gray-200"
+                            className="flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200"
                             onClick={toggleNavbar}
                         >
                             <FaBagShopping className="text-lg" />
                             Shop
                         </NavLink>
                     </li>
-                    <li className="border-b flex items-center justify-start px-1">
-                        <NavLink className="py-3" to='/dashboard'>
-                            <div className="border bg-white p-2 rounded-lg relative">
-                                <FaShoppingBag size={20} className="text-[#30baec]" />
-                                <div className="bg-red-500 p-1 rounded-full text-white absolute w-7 h-7 flex flex-col items-center justify-center -top-3 -right-4 text-sm font-bold">90</div>
-                            </div>
-                        </NavLink>
-                    </li>
+                    {
+                        role === 'Admin' ? <li className="border-b flex items-center justify-start px-1">
+                            <NavLink to='/dashboard/sellerHome' className='flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200'>
+                                <MdDashboard className="text-lg" />
+                                Dashboard
+                            </NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Seller' ? <li className="border-b flex items-center justify-start px-1">
+                            <NavLink to='/dashboard/sellerHome' className='flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200'>
+                                <MdDashboard className="text-lg" />
+                                Dashboard
+                            </NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Customer' ? <li className="border-b flex items-center justify-start px-1">
+                            <NavLink
+                                to="/dashboard/orderList"
+                                className="flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200"
+                                onClick={toggleNavbar}
+                            >
+                                <BsCartCheckFill className="text-xl" />
+                                My Cart ({orders.length})
+                            </NavLink>
+                        </li> : ''
+                    }
+
                     <li className="border-b flex items-center justify-start px-1">
                         <NavLink className="py-2">
                             <select defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-red-600 w-full">
@@ -219,10 +237,20 @@ const Navbar = () => {
                         </NavLink>
                     </li>
                     <li className="border-b flex items-center justify-start px-1">
+                        <NavLink
+                            to="/about-us"
+                            className="flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200"
+                            onClick={toggleNavbar}
+                        >
+                            <FaRegPlusSquare className="text-lg" />
+                            About Us
+                        </NavLink>
+                    </li>
+                    <li className="border-b flex items-center justify-start px-1 py-4">
                         <RiLoginBoxLine className="text-2xl" />
-                        {!user && (
-                            <NavLink className='font-semibold text-lg py-4' to='/login'>Join Us</NavLink>
-                        )}
+                        {
+                            user ? <button className="font-semibold text-lg" onClick={handleLogOut}>LogOut</button> : <NavLink className='font-semibold text-lg' to='/login'>Join Us</NavLink>
+                        }
                     </li>
                 </ul>
             </div>

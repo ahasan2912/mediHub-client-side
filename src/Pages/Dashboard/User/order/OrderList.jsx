@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const OrderList = () => {
     const [orders, refetch,] = useOrder();
     const axiosSecure = useAxiosSecure();
-
+    const totalAmount = orders.reduce((total, item) => total + parseInt(item.price), 0)
     // order delete from orderList
     const handleOrderDelete = (id) => {
         Swal.fire({
@@ -38,9 +38,9 @@ const OrderList = () => {
     }
     return (
         <div className="max-w-5xl mx-auto px-5 my-16">
-            <h1 className="text-4xl font-bold text-center">All Products Here</h1>
-            <div className="overflow-x-auto">
-                <table className="table">
+            <h1 className="text-4xl font-bold text-center">Total Order List</h1>
+            <div className="overflow-x-auto mt-4">
+                <table className="table border">
                     {/* head */}
                     <thead>
                         <tr>
@@ -81,6 +81,12 @@ const OrderList = () => {
                         </tr>)}
                     </tbody>
                 </table>
+            </div>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-0 justify-between">
+                <h1 className="text-3xl font-semibold">Total Amount: ${totalAmount}</h1>
+                <Link to='/dashboard/payment'>
+                    <div className="btn font-semibold bg-[#4398FE] text-white text-base hover:bg-[#86b2e8]">Proceed to Checkout</div>
+                </Link>
             </div>
             {/* ---------------Pagination-------------- */}
             {/* <div className="pagination text-center flex items-center justify-center mt-5 px-2 flex-wrap gap-3">
