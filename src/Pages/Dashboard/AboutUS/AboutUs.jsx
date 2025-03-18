@@ -1,8 +1,12 @@
+import { Helmet } from 'react-helmet-async';
 import aboutUsImg from '../../../../src/assets/About-us.png'
 
 const AboutUs = () => {
     return (
         <div className='mt-16 pt-10 px-4 md:p-10'>
+            <Helmet>
+                <title>MediHub | About-Us</title>
+            </Helmet>
             <div>
                 <img className='rounded-md w-full h-40 md:h-auto object-fill' src={aboutUsImg} alt="" />
             </div>

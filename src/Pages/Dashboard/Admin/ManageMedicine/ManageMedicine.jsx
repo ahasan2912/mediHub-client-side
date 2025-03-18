@@ -90,7 +90,7 @@ const ManageMedicine = () => {
     return (
         <div className="max-w-5xl mx-auto px-5 my-24">
             <Helmet>
-                <title>MediHub | Seller Products</title>
+                <title>Dashboard | Admin Manage Medicine</title>
             </Helmet>
             <h1 className="text-4xl font-bold text-center">My Products Here ({count})</h1>
             <div className="overflow-x-auto mt-7">

@@ -1,7 +1,7 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 import { FaEdit, FaHome, FaUsers } from "react-icons/fa";
-import { RiAdvertisementFill, RiLoginBoxLine, RiSecurePaymentLine } from "react-icons/ri";
+import { RiLoginBoxLine, RiSecurePaymentLine } from "react-icons/ri";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { MdManageAccounts } from "react-icons/md";
 import { GiMedicines } from "react-icons/gi";
@@ -11,7 +11,13 @@ import useAuth from "../Hook/useAuth";
 
 const Dashboard = () => {
     const [role] = useRole();
-    const {handleLogOut} = useAuth();
+    const { handleLogOut } = useAuth();
+    const navigate = useNavigate();
+    const logOut = () => {
+        handleLogOut();
+        navigate("/");
+    }
+
     return (
         <div className="flex mt-16">
             <div className="md:w-[28%] lg:w-[22%] xl:w-[18%] 2xl:w-[13%] bg-blue-500 min-h-screen">
@@ -55,10 +61,7 @@ const Dashboard = () => {
                                 <NavLink to='/dashboard/sellermanageorder' className="text-base font-semibold"><FaUsers size={20} />Manage Order</NavLink>
                             </li>
                             <li className="">
-                                <NavLink to='/dashboard/sellerPaymentHistory' className="text-base font-semibold"><RiSecurePaymentLine size={20} />Payement History</NavLink>
-                            </li>
-                            <li className="">
-                                <NavLink to='/dashboard/adminHome' className="text-base font-semibold"><RiAdvertisementFill size={20} />Advertisment</NavLink>
+                                <NavLink to='/dashboard/sellerPaymentHistory' className="text-base font-semibold"><RiSecurePaymentLine size={20} />Payment History</NavLink>
                             </li>
                         </>
                             : <></>
@@ -88,7 +91,7 @@ const Dashboard = () => {
                         <NavLink to='/dashboard/profile' className="text-base font-semibold"><FaEdit size={20} />Update Profile</NavLink>
                     </li>
                     <li className="">
-                        <NavLink onClick={handleLogOut} to='/dashboard/adminHome' className="text-base font-semibold"><RiLoginBoxLine size={20} />Log Out</NavLink>
+                        <NavLink onClick={logOut} to='/' className="text-base font-semibold"><RiLoginBoxLine size={20} />Log Out</NavLink>
                     </li>
                 </ul>
             </div>

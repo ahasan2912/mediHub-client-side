@@ -3,6 +3,7 @@ import useAuth from "../../../Hook/useAuth";
 import coverImg from "../../../../src/assets/cover.avif"
 import useRole from "../../../Hook/useRole";
 import LoadingSpinner from "../../../Components/LoadingSpinner";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
     const { user, loading } = useAuth();
@@ -40,22 +41,26 @@ const Profile = () => {
                         <div className='flex flex-wrap items-center justify-between text-sm text-gray-600 '>
                             <p className='flex flex-col font-bold'>
                                 Name
-                                <span className='font-bold text-black '>
+                                <span className='text-base font-bold text-black '>
                                     {user?.displayName}
                                 </span>
                             </p>
                             <p className='flex flex-col font-bold'>
                                 Email
-                                <span className='font-bold text-black '>{user?.email}</span>
+                                <span className='text-base font-bold text-black '>{user?.email}</span>
                             </p>
 
                             <div>
-                                <button className='btn btn-sm hover:text-black bg-blue-500 px-10 py-1 rounded-lg text-white cursor-pointer block mb-1'>
-                                    Update Profile
-                                </button>
-                                <button className='btn btn-sm hover:text-black bg-blue-500 px-7 py-1 rounded-lg text-white cursor-pointer'>
-                                    Change Password
-                                </button>
+                                <Link to="/dashboard/updateprofile">
+                                    <button className='btn btn-sm hover:text-black bg-blue-500 px-10 py-1 rounded-lg text-white cursor-pointer block mb-1'>
+                                        Update Profile
+                                    </button>
+                                </Link>
+                                <Link to='/dashboard/forgetpassword'>
+                                    <button className='btn btn-sm hover:text-black bg-blue-500 px-7 py-1 rounded-lg text-white cursor-pointer'>
+                                        Change Password
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>

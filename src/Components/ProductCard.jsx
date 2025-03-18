@@ -31,7 +31,7 @@ const ProductCard = ({ product }) => {
                 {/* Pricing */}
                 <div className="mt-2 flex items-center space-x-2">
                     <span className="text-xl font-bold t">${price}</span>
-                    <span className="text-gray-500 line-through text-sm">$1156.00</span>
+                    <span className="text-gray-500 line-through text-sm">$200.00</span>
                 </div>
             </div>
         </div>

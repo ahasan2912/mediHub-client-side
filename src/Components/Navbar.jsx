@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaHome, FaMoon, FaRegPlusSquare, FaShoppingBag, FaSun } from "react-icons/fa";
 import logo from '../assets/medEasyIcon.svg'
 import { FiMenu, FiX } from "react-icons/fi";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import useAuth from "../Hook/useAuth";
 import { FaBagShopping } from "react-icons/fa6";
@@ -18,8 +18,11 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const toggleNavbar = () => setIsOpen(!isOpen);
+    const navigate = useNavigate();
     const [orders] = useOrder();
     const [role] = useRole();
+    const [language, setLanguage] = useState(null)
+
     // Handle screen size changes
     useEffect(() => {
         const handleResize = () => {
@@ -49,6 +52,17 @@ const Navbar = () => {
     const handleTheme = () => {
         setTheme(theme === "light" ? "dark" : "light");
     }
+
+    // handle Language Change
+    const handleLanguage = () => {
+        console.log(language);
+    }
+
+    const logOut = () => {
+        handleLogOut();
+        navigate('/');
+    }
+
     return (
         <nav
             className="fixed bg-[#25A8D6]  top-0 w-full shadow-md z-50 transition-all duration-300">
@@ -101,7 +115,7 @@ const Navbar = () => {
                     )}
                     <NavLink to='/about-us' className="font-semibold text-lg">About Us</NavLink>
                     <NavLink className="w-60">
-                        <select defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-blue-300 w-full">
+                        <select onClick={handleLanguage} onChange={(e) => setLanguage(e.target.value)} defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-blue-300 w-full">
                             <option disabled value="default">Select Language</option>
                             <option>English</option>
                             <option>Japanese</option>
@@ -137,9 +151,21 @@ const Navbar = () => {
                                         tabIndex={0}
                                         className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-gray-400'
                                     >
-                                        <li>
-                                            <Link to='/dashboard/adminHome'>Dashboard</Link>
-                                        </li>
+                                        {
+                                            role === 'Customer' ? <li>
+                                                <Link to='/dashboard/orderList'>Dashboard</Link>
+                                            </li> : ''
+                                        }
+                                        {
+                                            role === 'Seller' ? <li>
+                                                <Link to='/dashboard/sellerHome'>Dashboard</Link>
+                                            </li> : ''
+                                        }
+                                        {
+                                            role === 'Admin' ? <li>
+                                                <Link to='/dashboard/adminHome'>Dashboard</Link>
+                                            </li> : ''
+                                        }
                                         <li>
                                             <Link to='/dashboard/profile' className='justify-between'>
                                                 Update Profile
@@ -147,7 +173,7 @@ const Navbar = () => {
                                         </li>
                                         <li className='mt-2'>
                                             <button
-                                                onClick={handleLogOut}
+                                                onClick={logOut}
                                                 className='block '
                                             >
                                                 Logout
@@ -181,7 +207,7 @@ const Navbar = () => {
                     <li className="border-y flex items-center justify-start px-1">
                         <NavLink
                             to="/"
-                            className="py-4 px-1 text-lg hover:bg-gray-200 flex items-center gap-1 font-semibold"
+                            className="py-4 px-1 text-lg flex items-center gap-1 font-semibold"
                             onClick={toggleNavbar}>
                             <FaHome className="text-lg" />
                             Home
@@ -190,7 +216,7 @@ const Navbar = () => {
                     <li className="border-b flex items-center justify-start px-1">
                         <NavLink
                             to="/shop"
-                            className="flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200"
+                            className="flex items-center gap-1 py-4 px-1 text-lg font-semibold"
                             onClick={toggleNavbar}
                         >
                             <FaBagShopping className="text-lg" />
@@ -199,7 +225,7 @@ const Navbar = () => {
                     </li>
                     {
                         role === 'Admin' ? <li className="border-b flex items-center justify-start px-1">
-                            <NavLink to='/dashboard/sellerHome' className='flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200'>
+                            <NavLink to='/dashboard/adminHome' className='flex items-center gap-1 py-4 px-1 text-lg font-semibold'>
                                 <MdDashboard className="text-lg" />
                                 Dashboard
                             </NavLink>
@@ -207,7 +233,7 @@ const Navbar = () => {
                     }
                     {
                         role === 'Seller' ? <li className="border-b flex items-center justify-start px-1">
-                            <NavLink to='/dashboard/sellerHome' className='flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200'>
+                            <NavLink to='/dashboard/sellerHome' className='flex items-center gap-1 py-4 px-1 text-lg font-semibold'>
                                 <MdDashboard className="text-lg" />
                                 Dashboard
                             </NavLink>
@@ -217,7 +243,7 @@ const Navbar = () => {
                         role === 'Customer' ? <li className="border-b flex items-center justify-start px-1">
                             <NavLink
                                 to="/dashboard/orderList"
-                                className="flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200"
+                                className="flex items-center gap-1 py-4 px-1 text-lg font-semibold"
                                 onClick={toggleNavbar}
                             >
                                 <BsCartCheckFill className="text-xl" />
@@ -228,7 +254,7 @@ const Navbar = () => {
 
                     <li className="border-b flex items-center justify-start px-1">
                         <NavLink className="py-2">
-                            <select defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-red-600 w-full">
+                            <select onChange={(e) => setLanguage(e.target.value)} defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-red-600 w-full">
                                 <option disabled value="default">Select Language</option>
                                 <option>English</option>
                                 <option>Japanese</option>
@@ -239,7 +265,7 @@ const Navbar = () => {
                     <li className="border-b flex items-center justify-start px-1">
                         <NavLink
                             to="/about-us"
-                            className="flex items-center gap-1 py-4 px-1 text-lg font-semibold hover:bg-gray-200"
+                            className="flex items-center gap-1 py-4 px-1 text-lg font-semibold"
                             onClick={toggleNavbar}
                         >
                             <FaRegPlusSquare className="text-lg" />

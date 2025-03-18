@@ -53,9 +53,9 @@ const SellerManageOrder = () => {
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-5 my-24">
+        <div className="max-w-5xl mx-auto px-5 my-14">
             <Helmet>
-                <title>MediHub | Seller Products</title>
+                <title>Dashboard | Manage Order</title>
             </Helmet>
             <h1 className="text-4xl font-semibold text-center">My Products Here</h1>
             <div className="overflow-x-auto mt-7">

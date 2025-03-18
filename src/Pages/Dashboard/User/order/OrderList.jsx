@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const OrderList = () => {
     const [orders, refetch,] = useOrder();
@@ -38,6 +39,9 @@ const OrderList = () => {
     }
     return (
         <div className="max-w-5xl mx-auto px-5 my-16">
+            <Helmet>
+                <title>Dashboard | OrderList</title>
+            </Helmet>
             <h1 className="text-4xl font-bold text-center">Total Order List</h1>
             <div className="overflow-x-auto mt-4">
                 <table className="table border">

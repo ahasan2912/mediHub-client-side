@@ -90,9 +90,9 @@ const SellerManageMedicine = () => {
         return <LoadingSpinner></LoadingSpinner>
     }
     return (
-        <div className="max-w-5xl mx-auto px-5 my-24">
-            <Helmet>
-                <title>MediHub | Seller Products</title>
+        <div className="max-w-5xl mx-auto px-5 my-14">
+             <Helmet>
+                <title>Dashboard | Manage Medicine</title>
             </Helmet>
             <h1 className="text-4xl font-bold text-center">My Products Here</h1>
             <div className="overflow-x-auto mt-7">

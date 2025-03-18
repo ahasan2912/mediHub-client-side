@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useOrder from "../../Hook/useOrder";
 import { Helmet } from "react-helmet-async";
-import LoadingSpinner from "../../Components/LoadingSpinner";
 import useRole from "../../Hook/useRole";
 import toast from "react-hot-toast";
 
@@ -16,16 +15,17 @@ const Shop = () => {
     const [produts, setProducts] = useState([]);
     const [count, setCount] = useState(0);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [search, setSearch] = useState('');
+    const [sort, setSort] = useState('')
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const location = useLocation();
-    // const [itemPerPage, setItemPertPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(0);
     const itemPerPage = 10;
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
-    const [, refetch, loading] = useOrder();
+    const [, refetch] = useOrder();
     const [role] = useRole();
 
     useEffect(() => {
@@ -38,13 +38,21 @@ const Shop = () => {
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page
     }, []);
+    /* // pagination data send server
+    const { data: produts = [], isLoading } = useQuery({
+        queryKey: ['products', currentPage, itemPerPage,],
+        queryFn: async () => {
+            const res = await axsiosPublic.get(`/products?page=${currentPage}&size=${itemPerPage}&search=${search}`)
+            return res.data;
+        }
+    }) */
 
     // pagination data send server
     useEffect(() => {
-        fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}`)
+        fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&search=${search}&sort=${sort}`)
             .then(res => res.json())
             .then(data => setProducts(data));
-    }, [currentPage, itemPerPage])
+    }, [currentPage, itemPerPage, search, sort])
 
     const hanlgePrevPage = () => {
         if (currentPage > 0) {
@@ -97,6 +105,17 @@ const Shop = () => {
                         refetch();
                     }
                 })
+                axiosSecure.post('/ordersList', cartItem)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            title: "Order Successfully!",
+                            icon: "success",
+                            draggable: true
+                        });
+                        refetch();
+                    }
+                })
         }
         else {
             Swal.fire({
@@ -115,17 +134,45 @@ const Shop = () => {
         }
     }
 
-    if (loading) {
-        return <LoadingSpinner></LoadingSpinner>
+    const handleSearch = e => {
+        e.preventDefault();
+        //if you want use onBlur
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-5 my-24">
+        <div className="max-w-7xl mx-auto px-5 my-24">
             <Helmet>
                 <title>MediHub | Shop</title>
             </Helmet>
-            <h1 className="text-4xl font-bold text-center">All Products Here</h1>
-            <div className="overflow-x-auto">
+            <div className=' flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+                <form onSubmit={handleSearch} className="md:w-[50%]">
+                    <div className='flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300'>
+                        <button className='px-2 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-l-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'>
+                            Search
+                        </button>
+                        <input
+                            className='w-full px-6 py-2 text-gray-700 placeholder-gray-500 bg-gray-300 outline-none focus:placeholder-transparent rounded-r-md'
+                            type='text'
+                            name='search'
+                            // value={search}
+                            placeholder='Search by medicine or company name'
+                            onChange={e => setSearch(e.target.value)}
+                        // onBlur={e => setSearch(e.target.value)}
+                        />
+                    </div>
+                </form>
+                <div className="p-1 flex border border-gray-300 rounded-md">
+                    <div className='px-2 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-l-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none'>Sort By</div>
+                    <select onChange={e => setSort(e.target.value)}
+                        value={sort}
+                        className="rounded-r-md outline-none flex justify-end ml-auto bg-gray-300 text-gray-700">
+                        <option value='asc' className="text-base">{`Price (Low > High)`}</option>
+                        <option value='dsc' className="text-base">{`Price (High > Low)`}</option>
+                    </select>
+                </div>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-bold w-full my-6">All Products Here</h1>
+            <div className="overflow-x-auto border">
                 <table className="table">
                     {/* head */}
                     <thead>
@@ -133,6 +180,7 @@ const Shop = () => {
                             <th className="text-base font-bold" >Serial</th>
                             <th className="text-base font-bold" >Photo</th>
                             <th className="text-base font-bold" >Name</th>
+                            <th className="text-base font-bold" >Company Name</th>
                             <th className="text-base font-bold" >Price</th>
                             <th className="text-base font-bold" >Add To Cart</th>
                             <th className="text-base font-bold" >Details</th>
@@ -149,6 +197,7 @@ const Shop = () => {
                                     alt="Avatar Tailwind CSS Component" />
                             </td>
                             <td className="text-base font-bold"> {item?.name} </td>
+                            <td className="text-base font-bold"> {item?.company} </td>
                             <td className="text-base font-bold">${item?.price}</td>
                             <td>
                                 <button

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { FaDownload } from "react-icons/fa";
 import * as XLSX from 'xlsx';
+import { Helmet } from "react-helmet-async";
 
 const PaymentManage = () => {
     const axiosSecure = useAxiosSecure();
@@ -19,7 +20,7 @@ const PaymentManage = () => {
 
         // create xlsx workbook 
         const workBook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workBook, jsonData, "xlsxData");
+        XLSX.utils.book_append_sheet(workBook, jsonData, "payments");
 
         // xlsx file download
         XLSX.writeFile(workBook, "PaymentList.xlsx");
@@ -27,6 +28,9 @@ const PaymentManage = () => {
 
     return (
         <div className="p-10 max-w-7xl mx-auto">
+            <Helmet>
+                <title>Dashboard | Admin Payment History</title>
+            </Helmet>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                 <h1 className="text-2xl sm:text-3xl font-semibold">Total payments: {payments.length}</h1>
                 <div>

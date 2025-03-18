@@ -4,6 +4,7 @@ import useUser from "../../../../Hook/useUser";
 import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const ManageUser = () => {
     const [users, isLoadign, refetch] = useUser();
@@ -57,6 +58,9 @@ const ManageUser = () => {
     }
     return (
         <div className="py-10 px-5 sm:py-10 sm:px-10 max-w-5xl mx-auto">
+            <Helmet>
+                <title>Dashboard | Admin Manage User</title>
+            </Helmet>
             <div className="flex justify-between gap-2">
                 <h1 className="text-2xl sm:text-4xl font-semibold">All Users</h1>
                 <h1 className="text-2xl sm:text-4xl font-semibold">Total Users: {users?.length}</h1>

@@ -4,6 +4,7 @@ import useAxiosPublic from "../../../../Hook/useAxiosPublic";
 import useAuth from "../../../../Hook/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -56,6 +57,9 @@ const AddMedicine = () => {
     }
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 via-blue-300 to-blue-500  py-16 px-4">
+            <Helmet>
+                <title>Dashboard | Add Medicine</title>
+            </Helmet>
             <div className="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-3xl font-semibold text-center text-gray-800">Add Medicine </h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-4">

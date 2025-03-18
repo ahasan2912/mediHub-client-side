@@ -28,6 +28,8 @@ import AboutUs from "../Pages/Dashboard/AboutUS/AboutUs";
 import SellerPaymentHistory from "../Pages/Dashboard/Seller/SellerManageMedicine.jsx/SellerPaymentHistory";
 import ManageMedicine from "../Pages/Dashboard/Admin/ManageMedicine/ManageMedicine";
 import AdminMediceineUpdata from "../Pages/Dashboard/Admin/AdminMedicineUpdate/AdminMediceineUpdata";
+import UpdateProfile from "../Pages/Dashboard/User/UpdateProfile";
+import ForgottenPassword from "../Pages/Dashboard/User/ForgottenPassword";
 
 export const router = createBrowserRouter([
   {
@@ -170,6 +172,14 @@ export const router = createBrowserRouter([
         element: <PrivetRoute>
           <SellerPaymentHistory></SellerPaymentHistory>
         </PrivetRoute>
+      },
+      {
+        path: 'updateprofile',
+        element: <PrivetRoute><UpdateProfile></UpdateProfile></PrivetRoute>
+      },
+      {
+        path: 'forgetpassword',
+        element: <ForgottenPassword></ForgottenPassword>
       }
 
     ]

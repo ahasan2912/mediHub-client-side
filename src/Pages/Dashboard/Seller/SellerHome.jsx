@@ -3,6 +3,8 @@ import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hook/useAuth";
 import LoadingSpinner from "../../../Components/LoadingSpinner";
+import SellerCharts from "../../../Charts/SellerCharts/SellerCharts";
+import { Helmet } from "react-helmet-async";
 
 const SellerHome = () => {
     const axiosSecure = useAxiosSecure();
@@ -22,13 +24,27 @@ const SellerHome = () => {
             return res.data;
         }
     })
-    const totalAmount = orders.reduce((total, order) => total + parseInt(order.price), 0);
+
+    const { data: payments = [] } = useQuery({
+        queryKey: ['payments'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/total/payments/seller`)
+            return res.data;
+        }
+    })
+
+    const totalPaid = payments.reduce((total, order) => total + parseInt(order.price), 0);
+
+    const totalPadding = orders.reduce((total, order) => total + parseInt(order.price), 0);
 
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
     return (
         <div className="p-10">
+            <Helmet>
+                <title>Dashboard | Seller Home</title>
+            </Helmet>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6">
                 <div className="bg-white shadow-lg border rounded-lg p-6 flex flex-col items-center text-center">
                     <div className="bg-gray-100 p-4 rounded-full mb-4">
@@ -50,19 +66,23 @@ const SellerHome = () => {
 
                 <div className="bg-white shadow-lg border rounded-lg p-6 flex flex-col items-center text-center">
                     <div className="bg-gray-100 p-4 rounded-full mb-4">
-                        <FaRegMoneyBillAlt className="text-orange-500 text-3xl" />
+                        <FaMoneyBillAlt className="text-red-500 text-3xl" />
                     </div>
-                    <h2 className="text-3xl font-bold">${totalAmount}</h2>
-                    <p className="font-semibold text-lg">Pending Amount</p>
+                    <h2 className="text-3xl font-bold">${totalPaid}</h2>
+                    <p className="font-semibold text-lg">Paid Amount</p>
                 </div>
 
                 <div className="bg-white shadow-lg border rounded-lg p-6 flex flex-col items-center text-center">
                     <div className="bg-gray-100 p-4 rounded-full mb-4">
-                        <FaMoneyBillAlt className="text-red-500 text-3xl" />
+                        <FaRegMoneyBillAlt className="text-orange-500 text-3xl" />
                     </div>
-                    <h2 className="text-3xl font-bold">${totalAmount}</h2>
-                    <p className="font-semibold text-lg">Paid Amount</p>
+                    <h2 className="text-3xl font-bold">${totalPadding}</h2>
+                    <p className="font-semibold text-lg">Pending Amount</p>
                 </div>
+
+            </div>
+            <div className="flex flex-col items-center justify-center mt-16 overflow-auto">
+                <SellerCharts></SellerCharts>
             </div>
         </div>
     );

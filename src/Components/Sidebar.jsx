@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
-import { BiDetail } from "react-icons/bi";
-import { FaFacebook, FaGithub, FaHome, FaLinkedin, FaMoon, FaSun } from "react-icons/fa";
+import { } from "react-icons/bi";
+import { FaHome, FaMoon, FaSun, FaUsers, FaEdit } from "react-icons/fa";
 import logo from '../assets/medEasyIcon.svg'
 import { FiMenu, FiX } from "react-icons/fi";
-import { GoProject } from "react-icons/go";
-import { MdOutlineContactPhone } from "react-icons/md";
-import { Link, NavLink } from "react-router-dom";
+import { GoListOrdered } from "react-icons/go";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import useAuth from "../Hook/useAuth";
 import useRole from "../Hook/useRole";
+import { RiLoginBoxLine, RiSecurePaymentLine } from "react-icons/ri";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { GiMedicines } from "react-icons/gi";
 const Sidebar = () => {
     const { user, handleLogOut } = useAuth();
     const [role] = useRole();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const toggleNavbar = () => setIsOpen(!isOpen);
+    const navigate = useNavigate();
     // Handle screen size changes
     useEffect(() => {
         const handleResize = () => {
@@ -43,6 +46,10 @@ const Sidebar = () => {
 
     const handleTheme = () => {
         setTheme(theme === "light" ? "dark" : "light");
+    }
+    const logOut = () => {
+        handleLogOut();
+        navigate("/");
     }
     return (
         <nav
@@ -135,7 +142,7 @@ const Sidebar = () => {
                                         </li>
                                         <li className='mt-2'>
                                             <button
-                                                onClick={handleLogOut}
+                                                onClick={logOut}
                                                 className='block '
                                             >
                                                 Logout
@@ -165,75 +172,94 @@ const Sidebar = () => {
                     className="absolute top-5 right-1 text-2xl focus:outline-none text-white">
                     <FiX className="text-3xl" />
                 </button>
-                <ul className="flex flex-col mt-[80px] text-black">
-                    <li className="border-y flex items-center justify-start px-4">
-                        <NavLink
-                            to="/"
-                            className="py-4 px-1 text-lg hover:bg-gray-200 flex items-center gap-1"
-                            onClick={toggleNavbar}>
-                            <FaHome className="text-lg" />
-                            Home
-                        </NavLink>
+                <ul className="flex flex-col mt-[80px] text-white">
+                    {/* Customer Role */}
+                    {
+                        role === 'Customer' ? <li className="border-t flex items-center justify-start px-1 py-4 gap-1">
+                            <GoListOrdered className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/orderList'>Order List</NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Customer' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <RiSecurePaymentLine className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/paymentHistory'>Payment History</NavLink>
+                        </li> : ''
+                    }
+                    {/* Admin Role */}
+                    {
+                        role === 'Admin' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <FaHome className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/adminHome'>Admin Home</NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Admin' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <FaUsers className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/adminManageMedicine'>Manage Medicine</NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Admin' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <RiSecurePaymentLine className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/paymentManage'>Puyment List</NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Admin' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t-2">
+                            <FaHome className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/manageBanner'>Banner Manage</NavLink>
+                        </li> : ''
+                    }
+                    {/* seller role*/}
+                    {
+                        role === 'Seller' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <FaHome className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/sellerHome'>Seller Home</NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Seller' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <IoMdAddCircleOutline className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/addMedicine'>Add Medicine</NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Seller' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <GiMedicines className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/sellermanagemedicine'>Manage Medicine</NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Seller' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <FaUsers className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/sellermanageorder'>Manage Order</NavLink>
+                        </li> : ''
+                    }
+                    {
+                        role === 'Seller' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
+                            <RiSecurePaymentLine className="text-2xl" />
+                            <NavLink className='font-semibold text-lg' to='/dashboard/sellermanageorder'>Payement History</NavLink>
+                        </li> : ''
+                    }
+                    {/* Common Route */}
+                    <li className="border-y flex items-center justify-start px-1 py-4 gap-1">
+                        <FaHome className="text-2xl" />
+                        <NavLink className='font-semibold text-lg' to='/'>Home</NavLink>
                     </li>
-                    <li className="border-b flex items-center justify-start px-4">
-                        <NavLink
-                            to="/about"
-                            className="flex items-center gap-1 py-4 px-1 text-lg hover:bg-gray-200"
-                            onClick={toggleNavbar}
-                        >
-                            <BiDetail className="text-lg" />
-                            About Me
-                        </NavLink>
+                    <li className="border-b flex items-center justify-start px-1 py-4 gap-1">
+                        <FaUsers className="text-2xl" />
+                        <NavLink className='font-semibold text-lg' to='/about-us'>About Us</NavLink>
                     </li>
-                    <li className="border-b flex items-center justify-start px-4">
-                        <NavLink
-                            to="/project"
-                            className="flex items-center gap-1 py-4 px-1 text-lg hover:bg-gray-200"
-                            onClick={toggleNavbar}
-                        >
-                            <GoProject className="text-lg" />
-                            Projects
-                        </NavLink>
+                </ul>
+                <ul className="text-white fixed bottom-0 w-full">
+                    <li className="border-b flex items-center justify-start px-1 py-4 gap-1">
+                        <FaEdit className="text-2xl" />
+                        <NavLink className='font-semibold text-lg' to='/dashboard/profile'>Update Profile</NavLink>
                     </li>
-                    <li className="border-b flex items-center justify-start px-4">
-                        <NavLink
-                            to="/contact"
-                            className="flex items-center gap-1 py-4 px-1 text-lg hover:bg-gray-200"
-                            onClick={toggleNavbar}
-                        >
-                            <MdOutlineContactPhone className="text-lg" />
-                            Contact
-                        </NavLink>
-                    </li>
-                    <li className="border-b flex items-center justify-start px-4">
-                        <FaGithub className="text-lg" />
-                        <NavLink
-                            to="https://github.com/ahasan2912" target="_blank"
-                            className="block py-4 px-1 text-lg hover:bg-gray-200"
-                            onClick={toggleNavbar}
-                        >
-                            GitHub
-                        </NavLink>
-                    </li>
-                    <li className="border-b flex items-center justify-start px-4">
-                        <FaLinkedin className="text-lg" />
-                        <NavLink
-                            to="https://www.linkedin.com/in/ahasanhabib2912/" target="_blank"
-                            className="block py-4 px-1 text-lg hover:bg-gray-200"
-                            onClick={toggleNavbar}
-                        >
-                            Linkedin
-                        </NavLink>
-                    </li>
-                    <li className="border-b flex items-center justify-start px-4">
-                        <FaFacebook className="text-lg" />
-                        <NavLink
-                            to="https://web.facebook.com/mdahashanhabib.siam" target="_blank"
-                            className="block py-4 px-1 text-lg hover:bg-gray-200"
-                            onClick={toggleNavbar}
-                        >
-                            Facebook
-                        </NavLink>
+                    <li className="border-b flex items-center justify-start px-1 py-4 gap-1">
+                        <RiLoginBoxLine className="text-2xl" />
+                        <NavLink onClick={handleLogOut} className='font-semibold text-lg' to='/'>LogOut</NavLink>
                     </li>
                 </ul>
             </div>

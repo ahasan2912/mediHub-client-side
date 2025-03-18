@@ -6,34 +6,40 @@ import { useEffect, useState } from "react";
 import LoadingSpinner from "../../Components/LoadingSpinner";
 import DetailsModal from "../../Components/modal/DetailsModal";
 import useAuth from "../../Hook/useAuth";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import useOrder from "../../Hook/useOrder";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hook/useAxiosPublic";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useRole from "../../Hook/useRole";
+import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 const CategoriesShow = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const { category } = useParams();
-    const [products, loading] = useProducts();
-    const [needProducts, setNeedProducts] = useState([]);
+    const [products] = useProducts();
+    // const [needProducts, setNeedProducts] = useState([]);
     const product = products.filter(item => item.category === category);
     const count = product.length;
     const navigate = useNavigate();
-    const location = useLocation();
-    const {user} = useAuth();
+    const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
+    const [role] = useRole();
+    const location = useLocation();
+    const { user } = useAuth();
     const [, refetch] = useOrder();
     const [currentPage, setCurrentPage] = useState(0);
     const itemPerPage = 10;
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
 
-    // pagination data send server
-    useEffect(() => {
-        fetch(`http://localhost:5000/products?category=${category}&&page=${currentPage}&size=${itemPerPage}`)
-            .then(res => res.json())
-            .then(data => setNeedProducts(data))
-    }, [currentPage, itemPerPage, category])
-
-    // all show middle windows
+    const { data: needProducts = [], isLoading } = useQuery({
+        queryKey: ['categories', category, currentPage, itemPerPage],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/products/categories?category=${category}&&page=${currentPage}&size=${itemPerPage}`)
+            return res.data;
+        }
+    })
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page
     }, []);
@@ -53,11 +59,17 @@ const CategoriesShow = () => {
         setSelectedItem(null)
     }
 
-    if (loading) {
+    if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
     // order send to database 
     const handleAddToCart = (medicine) => {
+        if (role === 'Admin') {
+            return toast.error(`Admin Can not Order any Products`)
+        }
+        if (role === 'Seller') {
+            return toast.error(`Seller Can not Order any Products`)
+        }
         const customer = {
             name: user?.displayName,
             photo: user?.photoURL,
@@ -69,7 +81,7 @@ const CategoriesShow = () => {
                 medicineId: medicine?._id,
                 name: medicine?.name,
                 image: medicine?.image,
-                price: medicine?.price,
+                price: parseInt(medicine?.price),
                 quantity: 1,
                 seller: medicine?.seller?.email,
                 customer
@@ -102,10 +114,13 @@ const CategoriesShow = () => {
             });
         }
     }
-    
+
     return (
         <div className="max-w-5xl mx-auto my-12">
-            <h1 className="text-4xl font-bold text-center mt-28">{category.charAt(0).toUpperCase() + category.slice(1)} Products</h1>
+            <Helmet>
+                <title>MediHub | Shop</title>
+            </Helmet>
+            <h1 className="text-4xl font-bold mt-28">{category.charAt(0).toUpperCase() + category.slice(1)} Products</h1>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
@@ -131,7 +146,7 @@ const CategoriesShow = () => {
                             <td className="text-base font-bold"> {item?.name} </td>
                             <td className="text-base font-bold">${item?.price}</td>
                             <td>
-                                <button onClick={()=> handleAddToCart(item)} className="btn btn-lg btn-ghost">
+                                <button onClick={() => handleAddToCart(item)} className="btn btn-lg btn-ghost">
                                     <GrCheckboxSelected className='text-blue-400 text-2xl' />
                                 </button>
                             </td>

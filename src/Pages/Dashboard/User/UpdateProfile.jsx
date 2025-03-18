@@ -1,72 +1,54 @@
-import Swal from "sweetalert2";
-import useAxiosSecure from "../../../../Hook/useAxiosSecure";
-import useAxiosPublic from "../../../../Hook/useAxiosPublic";
-import useAuth from "../../../../Hook/useAuth";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import BannerCard from "./BannerCard";
-import { Helmet } from "react-helmet-async";
+import useAuth from "../../../Hook/useAuth";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-const ManageBanner = () => {
+const UpdateProfile = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const axiosSecure = useAxiosSecure();
+    const { user, updateUserProfile, setUser } = useAuth();
     const axiosPublic = useAxiosPublic();
-    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
 
+
     const onSubmit = async (data) => {
-        // image upload to imabb then get url
+        // image upload to imgbb and then get url
         const imageFile = { image: data.photo[0] }
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         });
-        if (res.data.success) {
-            // admin info which that send image
-            const admin = {
-                name: user?.displayName,
-                image: user?.photoURL,
-                email: user?.email,
-            }
-            // now send the menu item data to the server with the image 
-            const banner = {
-                name: data.name,
-                image: res.data.data.display_url,
-                admin
-            }
-            const products = await axiosSecure.post('/banners', banner);
-            if (products.data.insertedId) {
-                refetch();
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: 'Added new banner!',
-                    showConfirmButton: false,
-                    timer: 1000
-                });
-                reset();
-                navigate('/')
-            }
-        }
+        const photoURL = res.data.data.display_url;
+        updateUserProfile(data.name, photoURL)
+            .then(() => {
+                const userInfo = {
+                    name: data.name,
+                    image: photoURL,
+                }
+                // data save in server
+                axiosSecure.patch(`/users/profile/${user?.email}`, userInfo)
+                    .then(res => {
+                        if (res.data.modifiedCount) {
+                            reset();
+                            toast.success('Profile Update successfully!');
+                            setUser({ ...user, displayName: data.name, photoURL: photoURL })
+                            navigate("/dashboard/profile");
+                        }
+                    })
+            })
+            .catch(err => {
+                toast.error(err.message);
+            });
+
     }
-    const { data: banners = [], isPending: loading, refetch } = useQuery({
-        queryKey: ['banners'],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/banners');
-            return res.data;
-        }
-    })
     return (
-        <div className="mt-10 px-3 flex flex-col items-center justify-center">
-            <Helmet>
-                <title>Dashboard | Manage Banner</title>
-            </Helmet>
-            <h1 className="text-4xl md:text-5xl font-bold text-center">Manage Banner</h1>
+        <div className="mt-10 sm:mt-20 flex flex-col items-center justify-center px-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-center">Update Profile </h1>
             <div className="w-full max-w-5xl mx-auto bg-white rounded-lg border border-blue-300 p-2 mt-6 md:mt-10 py-4">
-                <h2 className="text-3xl font-semibold text-center text-gray-800">Add Banner </h2>
                 <div>
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
                         <div className="lg:flex gap-4 items-center">
@@ -77,6 +59,7 @@ const ManageBanner = () => {
                                 </label>
                                 <input
                                     type="text"
+                                    defaultValue={user?.displayName}
                                     {...register("name", { required: true })}
                                     name="name"
                                     placeholder="Madicine Name"
@@ -103,23 +86,13 @@ const ManageBanner = () => {
                             type="submit"
                             className="btn btn-primary w-full bg-gradient-to-r from-blue-400 to-blue-500 text-white"
                         >
-                            Add Banner
+                            Update Profile
                         </button>
                     </form>
                 </div>
-            </div>
-            <div className="w-full max-w-5xl mx-auto grid md:grid-cols-2 lg:grid-cols-2 mt-10 gap-5">
-                {
-                    banners.map(bnr => <BannerCard
-                        key={bnr._id}
-                        banner={bnr}
-                        loading={loading}
-                        refetch={refetch}
-                    ></BannerCard>)
-                }
             </div>
         </div>
     );
 };
 
-export default ManageBanner;
+export default UpdateProfile;
