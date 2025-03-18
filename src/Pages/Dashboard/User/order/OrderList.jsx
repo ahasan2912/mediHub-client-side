@@ -42,7 +42,7 @@ const OrderList = () => {
             <Helmet>
                 <title>Dashboard | OrderList</title>
             </Helmet>
-            <h1 className="text-4xl font-bold text-center">Total Order List</h1>
+            <h1 className="text-4xl font-bold ">Orders List</h1>
             <div className="overflow-x-auto mt-4">
                 <table className="table border">
                     {/* head */}
@@ -53,8 +53,7 @@ const OrderList = () => {
                             <th className="text-base font-bold" >Medicine Name</th>
                             <th className="text-base font-bold" >Customer Name</th>
                             <th className="text-base font-bold" >Price</th>
-                            <th className="text-base font-bold" >Add To Cart</th>
-                            <th className="text-base font-bold" >Details</th>
+                            <th className="text-base font-bold text-center" >Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,15 +68,13 @@ const OrderList = () => {
                             <td className="text-base font-bold"> {item?.name} </td>
                             <td className="text-base font-bold"> {item?.customer?.name} </td>
                             <td className="text-base font-bold">${item?.price}</td>
-                            <td>
+                            <td className="text-center flex justify-center">
                                 <Link to={`/dashboard/orderDetails/${item?._id}`}>
-                                    <button className="btn btn-lg btn-ghost">
+                                    <button className="btn btn-sm md:btn-lg btn-ghost">
                                         <FaRegEdit className='text-blue-400 text-2xl' />
                                     </button>
                                 </Link>
-                            </td>
-                            <td>
-                                <button onClick={() => handleOrderDelete(item?._id)} className="btn btn-lg btn-ghost">
+                                <button onClick={() => handleOrderDelete(item?._id)} className="btn btn-sm md:btn-lg btn-ghost">
                                     <MdDelete className='text-blue-400 text-2xl' />
                                 </button>
                             </td>

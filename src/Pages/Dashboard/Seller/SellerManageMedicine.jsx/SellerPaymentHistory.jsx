@@ -29,7 +29,7 @@ const SellerPaymentHistory = () => {
         XLSX.writeFile(workBook, "PaymentList.xlsx");
     }
     return (
-        <div className="p-10 max-w-7xl mx-auto">d
+        <div className="p-10 max-w-7xl mx-auto">
             <Helmet>
                 <title>Dashboard | Payment History</title>
             </Helmet>

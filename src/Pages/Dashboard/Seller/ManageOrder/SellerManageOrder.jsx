@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import useAxiosSecure from "../../../../Hook/useAxiosSecure";
-import useAuth from "../../../../Hook/useAuth";
 import { MdDelete } from "react-icons/md";
+import useAuth from "../../../../Hook/useAuth";
+import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 
 const SellerManageOrder = () => {
     const axiosSecure = useAxiosSecure();
@@ -16,7 +16,7 @@ const SellerManageOrder = () => {
     const pages = [...Array(numberOfPages).keys()];
 
     useEffect(() => {
-        fetch(`http://localhost:5000/ordersCount/${user?.email}`)
+        fetch(`https://madi-hub-server-side.vercel.app/ordersCount/${user?.email}`)
             .then(res => res.json())
             .then(data => setCount(data.count))
     }, [user?.email]);

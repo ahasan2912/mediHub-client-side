@@ -239,7 +239,7 @@ const Sidebar = () => {
                     {
                         role === 'Seller' ? <li className=" flex items-center justify-start px-1 py-4 gap-1 border-t">
                             <RiSecurePaymentLine className="text-2xl" />
-                            <NavLink className='font-semibold text-lg' to='/dashboard/sellermanageorder'>Payement History</NavLink>
+                            <NavLink className='font-semibold text-lg' to='/dashboard/sellerPaymentHistory'>Payement History</NavLink>
                         </li> : ''
                     }
                     {/* Common Route */}

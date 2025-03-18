@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../../Hook/useAxiosSecure";
-import LoadingSpinner from "../../../../Components/LoadingSpinner";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { FaEdit, FaEye } from "react-icons/fa";
-import DetailsModal from "../../../../Components/modal/DetailsModal";
-import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom"
+import LoadingSpinner from "../../../../Components/LoadingSpinner";
+import DetailsModal from "../../../../Components/modal/DetailsModal";
+import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 
 const ManageMedicine = () => {
     const axiosSecure = useAxiosSecure();
@@ -19,7 +19,7 @@ const ManageMedicine = () => {
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
     useEffect(() => {
-        fetch(`http://localhost:5000/productsCount`)
+        fetch(`https://madi-hub-server-side.vercel.app/productsCount`)
             .then(res => res.json())
             .then(data => setCount(data.count))
     }, []);
@@ -116,7 +116,7 @@ const ManageMedicine = () => {
                             </td>
                             <td className="text-base font-bold"> {item?.name} </td>
                             <td className="text-base font-bold">${item?.price}</td>
-                            <td className="text-center">
+                            <td className="text-center flex items-center justify-center">
                                 <Link to={`/dashboard/adminupdatproduct/${item?._id}`}>
                                     <button className="btn btn-ghost">
                                         <FaEdit className='text-blue-400 text-2xl' />

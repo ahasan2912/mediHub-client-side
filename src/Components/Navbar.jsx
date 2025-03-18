@@ -181,7 +181,11 @@ const Navbar = () => {
                                         </li>
                                     </ul>
                                 </div>
-                            ) : ''
+                            ) : (
+                                <div className="py-6">
+
+                                </div>
+                            )
                         }
                     </div>
                     <div className='block'>

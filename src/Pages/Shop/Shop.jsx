@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
 import { GrCheckboxSelected } from "react-icons/gr";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import DetailsModal from "../../Components/modal/DetailsModal";
 import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
-import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
 import useOrder from "../../Hook/useOrder";
-import { Helmet } from "react-helmet-async";
 import useRole from "../../Hook/useRole";
-import toast from "react-hot-toast";
 
 const Shop = () => {
     const [produts, setProducts] = useState([]);
@@ -29,7 +29,7 @@ const Shop = () => {
     const [role] = useRole();
 
     useEffect(() => {
-        fetch('http://localhost:5000/productsCount')
+        fetch('https://madi-hub-server-side.vercel.app/productsCount')
             .then(res => res.json())
             .then(data => setCount(data.count))
     }, []);
@@ -49,7 +49,7 @@ const Shop = () => {
 
     // pagination data send server
     useEffect(() => {
-        fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&search=${search}&sort=${sort}`)
+        fetch(`https://madi-hub-server-side.vercel.app/products?page=${currentPage}&size=${itemPerPage}&search=${search}&sort=${sort}`)
             .then(res => res.json())
             .then(data => setProducts(data));
     }, [currentPage, itemPerPage, search, sort])
@@ -182,8 +182,7 @@ const Shop = () => {
                             <th className="text-base font-bold" >Name</th>
                             <th className="text-base font-bold" >Company Name</th>
                             <th className="text-base font-bold" >Price</th>
-                            <th className="text-base font-bold" >Add To Cart</th>
-                            <th className="text-base font-bold" >Details</th>
+                            <th className="text-base font-bold text-center" >Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -199,18 +198,15 @@ const Shop = () => {
                             <td className="text-base font-bold"> {item?.name} </td>
                             <td className="text-base font-bold"> {item?.company} </td>
                             <td className="text-base font-bold">${item?.price}</td>
-                            <td>
+                            <td className="flex justify-center items-center">
                                 <button
                                     onClick={() => handleAddToCart(item)} className="btn btn-ghost">
                                     <GrCheckboxSelected className='text-blue-400 text-2xl' />
                                 </button>
-                            </td>
-                            <td>
                                 <button onClick={() => setSelectedItem(item)} className="btn btn-lg btn-ghost">
                                     <FaEye className='text-blue-400 text-2xl' />
                                 </button>
                             </td>
-
                         </tr>)}
                     </tbody>
                 </table>
