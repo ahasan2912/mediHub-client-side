@@ -33,6 +33,7 @@ MediHub Medical Store is a multi-vendor e-commerce platform built with the MERN 
 - CSS/Tailwind
 - DaisyUI
 - Node.js
+- JSON Web Token (JWT)
 - JSX
 - MongoDB
 - CRUD Operation
