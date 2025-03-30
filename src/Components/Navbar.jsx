@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaHome, FaMoon, FaRegPlusSquare, FaShoppingBag, FaSun } from "react-icons/fa";
-import logo from '../assets/medEasyIcon.svg'
+import logo from '../assets/medEasyIcon.svg';
+import logInLogo from '../assets/logIn.jpg';
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
@@ -21,7 +22,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const [orders] = useOrder();
     const [role] = useRole();
-    const [language, setLanguage] = useState(null)
+    // const [language, setLanguage] = useState(null);
 
     // Handle screen size changes
     useEffect(() => {
@@ -54,9 +55,9 @@ const Navbar = () => {
     }
 
     // handle Language Change
-    const handleLanguage = () => {
+    /* const handleLanguage = () => {
         console.log(language);
-    }
+    } */
 
     const logOut = () => {
         handleLogOut();
@@ -110,18 +111,15 @@ const Navbar = () => {
                             </div>
                         </NavLink> : ''
                     }
-                    {!user && (
-                        <NavLink className='font-semibold text-lg' to='/login'>Join Us</NavLink>
-                    )}
                     <NavLink to='/about-us' className="font-semibold text-lg">About Us</NavLink>
-                    <NavLink className="w-60">
+                    {/* <NavLink className="w-60">
                         <select onClick={handleLanguage} onChange={(e) => setLanguage(e.target.value)} defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-blue-300 w-full">
                             <option disabled value="default">Select Language</option>
                             <option>English</option>
                             <option>Japanese</option>
                             <option>Italian</option>
                         </select>
-                    </NavLink>
+                    </NavLink> */}
                 </ul>
                 <div className="flex items-center gap-4">
                     {/* NaverEnd */}
@@ -140,7 +138,7 @@ const Navbar = () => {
                                                 referrerPolicy='no-referrer'
                                                 alt='User Profile Photo'
                                                 src={user?.photoURL}
-                                                className="w-9 h-9 object-fill rounded-full my-anchor-element hover:animate-pulse"
+                                                className="w-8 h-8 object-fill rounded-full my-anchor-element hover:animate-pulse"
                                             />
                                             <Tooltip anchorSelect=".my-anchor-element" place="bottom">
                                                 {user?.displayName}
@@ -182,8 +180,22 @@ const Navbar = () => {
                                     </ul>
                                 </div>
                             ) : (
-                                <div className="py-6">
-
+                                <div className="border-2 border-gray-300 rounded-full p-1">
+                                    {!user && (
+                                        <NavLink to='/login'>
+                                            <div className="">
+                                                <img
+                                                    referrerPolicy='no-referrer'
+                                                    alt='User Profile Photo'
+                                                    src={logInLogo}
+                                                    className="w-8 h- object-fill rounded-full my-anchor-element hover:animate-pulse"
+                                                />
+                                                <Tooltip anchorSelect=".my-anchor-element" place="bottom">
+                                                    {'Please Login'}
+                                                </Tooltip>
+                                            </div>
+                                        </NavLink>
+                                    )}
                                 </div>
                             )
                         }
@@ -256,7 +268,7 @@ const Navbar = () => {
                         </li> : ''
                     }
 
-                    <li className="border-b flex items-center justify-start px-1">
+                    {/* <li className="border-b flex items-center justify-start px-1">
                         <NavLink className="py-2">
                             <select onChange={(e) => setLanguage(e.target.value)} defaultValue="default" className="bg-white text-black py-2 px-2 rounded-lg outline-none border border-red-600 w-full">
                                 <option disabled value="default">Select Language</option>
@@ -265,7 +277,7 @@ const Navbar = () => {
                                 <option>Italian</option>
                             </select>
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li className="border-b flex items-center justify-start px-1">
                         <NavLink
                             to="/about-us"
@@ -279,7 +291,7 @@ const Navbar = () => {
                     <li className="border-b flex items-center justify-start px-1 py-4">
                         <RiLoginBoxLine className="text-2xl" />
                         {
-                            user ? <button className="font-semibold text-lg" onClick={handleLogOut}>LogOut</button> : <NavLink className='font-semibold text-lg' to='/login'>Join Us</NavLink>
+                            user ? <button className="font-semibold text-lg" onClick={handleLogOut}>LogOut</button> : <NavLink className='font-semibold text-lg' to='/login'>LogIn</NavLink>
                         }
                     </li>
                 </ul>

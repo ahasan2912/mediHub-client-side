@@ -19,7 +19,7 @@ const ManageMedicine = () => {
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
     useEffect(() => {
-        fetch(`https://madi-hub-server-side.vercel.app/productsCount`)
+        fetch(`http://localhost:5000/productsCount`)
             .then(res => res.json())
             .then(data => setCount(data.count))
     }, []);

@@ -10,6 +10,7 @@ import useAuth from "../../Hook/useAuth";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useOrder from "../../Hook/useOrder";
 import useRole from "../../Hook/useRole";
+import MedicineCard from "../../Components/MedicineCard";
 
 const Shop = () => {
     const [produts, setProducts] = useState([]);
@@ -22,14 +23,14 @@ const Shop = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [currentPage, setCurrentPage] = useState(0);
-    const itemPerPage = 10;
+    const itemPerPage = 12;
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
     const [, refetch] = useOrder();
     const [role] = useRole();
 
     useEffect(() => {
-        fetch('https://madi-hub-server-side.vercel.app/productsCount')
+        fetch('http://localhost:5000/productsCount')
             .then(res => res.json())
             .then(data => setCount(data.count))
     }, []);
@@ -38,6 +39,7 @@ const Shop = () => {
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page
     }, []);
+    
     /* // pagination data send server
     const { data: produts = [], isLoading } = useQuery({
         queryKey: ['products', currentPage, itemPerPage,],
@@ -48,8 +50,9 @@ const Shop = () => {
     }) */
 
     // pagination data send server
+
     useEffect(() => {
-        fetch(`https://madi-hub-server-side.vercel.app/products?page=${currentPage}&size=${itemPerPage}&search=${search}&sort=${sort}`)
+        fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&search=${search}&sort=${sort}`)
             .then(res => res.json())
             .then(data => setProducts(data));
     }, [currentPage, itemPerPage, search, sort])
@@ -105,7 +108,7 @@ const Shop = () => {
                         refetch();
                     }
                 })
-                axiosSecure.post('/ordersList', cartItem)
+            axiosSecure.post('/ordersList', cartItem)
                 .then(res => {
                     if (res.data.insertedId) {
                         Swal.fire({
@@ -172,6 +175,14 @@ const Shop = () => {
                 </div>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold w-full my-6">All Products Here</h1>
+            <div className="grid grid-cols-4 gap-5">
+                {
+                    produts.map((item, idx) => <MedicineCard 
+                    key={idx}
+                    item={item}
+                    ></MedicineCard>)
+                }
+            </div>
             <div className="overflow-x-auto border">
                 <table className="table">
                     {/* head */}
