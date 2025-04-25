@@ -7,12 +7,13 @@ import useAxiosPublic from "../Hook/useAxiosPublic";
 import { AuthContext } from "../Routes/Provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 
+
 // image related variable
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 const Register = () => {
     const axiosPublic = useAxiosPublic();
-    const { user, setUser, createUser, loginWithGoogle, updateUserProfile } = useContext(AuthContext)
+    const { user, setUser, createUser, loginWithGoogle, updateUserProfile, handleLogOut } = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [showPassword, setShowPassword] = useState('');
     const navigate = useNavigate();
@@ -37,6 +38,7 @@ const Register = () => {
                             email: data.email,
                             image: photoURL,
                         }
+                        console.log(userInfo);
                         // data save in server
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
@@ -45,7 +47,8 @@ const Register = () => {
                                     toast.success('Register successfully!');
                                     setUser({ ...user, displayName: data.name, photoURL: photoURL })
                                 }
-                                navigate(from, { replace: true });
+                                handleLogOut();
+                                navigate('/login');
                             })
                     })
                     .catch(err => {
@@ -55,7 +58,6 @@ const Register = () => {
             .catch(err => {
                 toast.error(err.message);
             });
-
     }
 
     const hadleGoogleLogin = () => {
@@ -115,7 +117,7 @@ const Register = () => {
                             {...register("photo", { required: true })}
                             name="photo"
                             placeholder="Type your email"
-                            className="border py-2 px-1 rounded-lg bg-base"
+                            className="border py-2 px-1 rounded-lg bg-base mt-2"
                         />
                         {errors.photo && <span className='text-red-500'>This field is required</span>}
                     </div>
@@ -134,15 +136,16 @@ const Register = () => {
                         {errors.email && <span className='text-red-500'>This field is required</span>}
                     </div>
                     <div className="form-control mb-4 relative">
-                        <label className="label">
-                            <span className="label-text">Password</span>
+                        <label className="text-gray-700 flex items-center gap-1">
+                            <span>Password</span>
+                            <span className="text-red-500 text-base font-semibold"> *</span>
                         </label>
                         <input type={showPassword ? 'text' : 'password'}  {...register("password", {
                             required: true,
                             minLength: 6,
                             maxLength: 100,
                             pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                        })} name="password" placeholder="password" className="input input-bordered bg-white" required />
+                        })} name="password" placeholder="password" className="input input-bordered bg-white mt-2" required />
                         {errors.password?.type === 'required' && <p className='text-red-600'>Password is required</p>}
                         {errors.password?.type === 'minLength' && <p className='text-red-600'>Password must be 6 characters</p>}
                         {errors.password?.type === 'maxLength' && <p className='text-red-600'>Password must be less than 10 characters</p>}

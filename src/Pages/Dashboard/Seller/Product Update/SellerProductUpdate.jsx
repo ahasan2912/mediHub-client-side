@@ -4,6 +4,7 @@ import useAxiosPublic from "../../../../Hook/useAxiosPublic";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const SellerProductUpdate = () => {
@@ -20,6 +21,14 @@ const SellerProductUpdate = () => {
             return res.data;
         }
     })
+    const { name, category, description, price, quantity, company } = product;
+    //for update defaultValue
+        useEffect(() => {
+            if (product) {
+                reset(product);
+            }
+        }, [product, reset]);
+
     const onSubmit = async (data) => {
         // image upload to imabb then get url
         const imageFile = { image: data.photo[0] }
@@ -67,7 +76,7 @@ const SellerProductUpdate = () => {
                             <input
                                 type="text"
                                 {...register("name")}
-                                defaultValue={product?.name}
+                                defaultValue={name}
                                 name="name"
                                 placeholder="Madicine Name"
                                 className="input input-bordered w-full mt-2 bg-white"
@@ -95,8 +104,8 @@ const SellerProductUpdate = () => {
                                 <span>Category</span>
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
-                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('category')}>
-                                <option disabled value={product?.category}>Select category</option>
+                            <select className="select select-bordered w-full bg-white" defaultValue={category} {...register('category')}>
+                                <option disabled value={product?.category}>{category}</option>
                                 <option>OTC</option>
                                 <option>Syrup</option>
                                 <option>Injection</option>
@@ -115,8 +124,8 @@ const SellerProductUpdate = () => {
                                 <span>Company</span>
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
-                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('company')}>
-                                <option disabled value={product?.company}>Select company</option>
+                            <select className="select select-bordered w-full bg-white" defaultValue={company} {...register('company')}>
+                                <option disabled value={product?.company}>{company}</option>
                                 <option>Renata Limited</option>
                                 <option>Radiant Pharmaceuticals Ltd</option>
                                 <option>Eskayef Bangladesh Ltd</option>
@@ -138,7 +147,7 @@ const SellerProductUpdate = () => {
                         </label>
                         <textarea
                             {...register('description')} className="textarea textarea-bordered bg-white"
-                            defaultValue={product?.description}
+                            defaultValue={description}
                             placeholder="Detils Description"></textarea>
                         {errors.description && <span className='text-red-500'>This field is required</span>}
                     </div>
@@ -150,8 +159,7 @@ const SellerProductUpdate = () => {
                             </label>
                             <input
                                 type="number"
-                                defaultValue={product?.price}
-                                min={1}
+                                defaultValue={price}
                                 {...register("price")}
                                 name="price"
                                 placeholder="Madicine price"
@@ -166,8 +174,7 @@ const SellerProductUpdate = () => {
                             </label>
                             <input
                                 type="number"
-                                defaultValue={product?.quantity}
-                                min={1}
+                                defaultValue={quantity}
                                 {...register("quantity")}
                                 name="quantity"
                                 placeholder="Madicine Quantity"

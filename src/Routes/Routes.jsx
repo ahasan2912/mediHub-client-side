@@ -30,6 +30,7 @@ import ManageMedicine from "../Pages/Dashboard/Admin/ManageMedicine/ManageMedici
 import AdminMediceineUpdata from "../Pages/Dashboard/Admin/AdminMedicineUpdate/AdminMediceineUpdata";
 import UpdateProfile from "../Pages/Dashboard/User/UpdateProfile";
 import ForgottenPassword from "../Pages/Dashboard/User/ForgottenPassword";
+import MedicineDetails from "../Components/MedicineDetails";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
         path: '/about-us',
         element: <AboutUs></AboutUs>
       },
+      {
+        path: '/medicineDetails/:id',
+        element: <MedicineDetails></MedicineDetails>
+      }
     ]
   },
   {

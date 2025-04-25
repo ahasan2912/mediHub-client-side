@@ -37,8 +37,8 @@ const AddMedicine = () => {
                 category: data.category,
                 company: data.company,
                 description: data.description,
-                price: data.price,
-                quantity: data.quantity,
+                price: parseInt(data.price),
+                quantity: parseInt(data.quantity),
                 seller
             }
             const products = await axiosSecure.post('/products', product);

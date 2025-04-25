@@ -1,34 +1,16 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import toast from "react-hot-toast";
-import { FaEye } from "react-icons/fa";
-import { GrCheckboxSelected } from "react-icons/gr";
-import { useLocation, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import DetailsModal from "../../Components/modal/DetailsModal";
-import useAuth from "../../Hook/useAuth";
-import useAxiosSecure from "../../Hook/useAxiosSecure";
-import useOrder from "../../Hook/useOrder";
-import useRole from "../../Hook/useRole";
 import MedicineCard from "../../Components/MedicineCard";
 
 const Shop = () => {
     const [produts, setProducts] = useState([]);
     const [count, setCount] = useState(0);
-    const [selectedItem, setSelectedItem] = useState(null);
     const [search, setSearch] = useState('');
     const [sort, setSort] = useState('')
-    const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
-    const navigate = useNavigate();
-    const location = useLocation();
     const [currentPage, setCurrentPage] = useState(0);
     const itemPerPage = 12;
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
-    const [, refetch] = useOrder();
-    const [role] = useRole();
-
     useEffect(() => {
         fetch('http://localhost:5000/productsCount')
             .then(res => res.json())
@@ -39,15 +21,6 @@ const Shop = () => {
     useEffect(() => {
         window.scrollTo(0, 0); // Scroll to the top of the page
     }, []);
-    
-    /* // pagination data send server
-    const { data: produts = [], isLoading } = useQuery({
-        queryKey: ['products', currentPage, itemPerPage,],
-        queryFn: async () => {
-            const res = await axsiosPublic.get(`/products?page=${currentPage}&size=${itemPerPage}&search=${search}`)
-            return res.data;
-        }
-    }) */
 
     // pagination data send server
 
@@ -68,13 +41,9 @@ const Shop = () => {
             setCurrentPage(currentPage + 1);
         }
     }
-    // close modal
-    const closeModal = () => {
-        setSelectedItem(null)
-    }
 
     // handleAddToCart
-    const handleAddToCart = (medicine) => {
+   /*  const handleAddToCart = (medicine) => {
         if (role === 'Admin') {
             return toast.error(`Admin Can not Order any Products`)
         }
@@ -135,7 +104,7 @@ const Shop = () => {
                 }
             });
         }
-    }
+    } */
 
     const handleSearch = e => {
         e.preventDefault();
@@ -175,53 +144,13 @@ const Shop = () => {
                 </div>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold w-full my-6">All Products Here</h1>
-            <div className="grid grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 {
                     produts.map((item, idx) => <MedicineCard 
                     key={idx}
                     item={item}
                     ></MedicineCard>)
                 }
-            </div>
-            <div className="overflow-x-auto border">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th className="text-base font-bold" >Serial</th>
-                            <th className="text-base font-bold" >Photo</th>
-                            <th className="text-base font-bold" >Name</th>
-                            <th className="text-base font-bold" >Company Name</th>
-                            <th className="text-base font-bold" >Price</th>
-                            <th className="text-base font-bold text-center" >Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* {produts.map((item, idx) => <ShowProducts key={idx} item={item} idx={idx}></ShowProducts>)} */}
-                        {produts.map((item, idx) => <tr key={idx}>
-                            <td className="text-base font-bold">{idx + 1}</td>
-                            <td>
-                                <img
-                                    className="w-14 h-14 rounded-xl object-fill"
-                                    src={item?.image}
-                                    alt="Avatar Tailwind CSS Component" />
-                            </td>
-                            <td className="text-base font-bold"> {item?.name} </td>
-                            <td className="text-base font-bold"> {item?.company} </td>
-                            <td className="text-base font-bold">${item?.price}</td>
-                            <td className="flex justify-center items-center">
-                                <button
-                                    onClick={() => handleAddToCart(item)} className="btn btn-ghost">
-                                    <GrCheckboxSelected className='text-blue-400 text-2xl' />
-                                </button>
-                                <button onClick={() => setSelectedItem(item)} className="btn btn-lg btn-ghost">
-                                    <FaEye className='text-blue-400 text-2xl' />
-                                </button>
-                            </td>
-                        </tr>)}
-                    </tbody>
-                </table>
-                {selectedItem && <DetailsModal item={selectedItem} closeModal={closeModal} />}
             </div>
             {/* ---------------Pagination-------------- */}
             <div className="pagination text-center flex items-center justify-center mt-5 px-2 flex-wrap gap-3">

@@ -1,7 +1,5 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useProducts from "../../Hook/useProducts";
-import { GrCheckboxSelected } from "react-icons/gr";
-import { FaEye } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../Components/LoadingSpinner";
 import DetailsModal from "../../Components/modal/DetailsModal";
@@ -14,6 +12,7 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useRole from "../../Hook/useRole";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import MedicineCard from "../../Components/MedicineCard";
 const CategoriesShow = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const { category } = useParams();
@@ -121,46 +120,17 @@ const CategoriesShow = () => {
                 <title>MediHub | Shop</title>
             </Helmet>
             <h1 className="text-4xl font-bold mt-28">{category.charAt(0).toUpperCase() + category.slice(1)} Products</h1>
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th className="text-base font-bold" >Serial</th>
-                            <th className="text-base font-bold" >Photo</th>
-                            <th className="text-base font-bold" >Name</th>
-                            <th className="text-base font-bold" >Price</th>
-                            <th className="text-base font-bold" >Add To Cart</th>
-                            <th className="text-base font-bold" >Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {needProducts.map((item, idx) => <tr key={idx}>
-                            <td className="text-base font-bold">{idx + 1}</td>
-                            <td>
-                                <img
-                                    className="w-14 h-14 rounded-xl object-fill"
-                                    src={item?.image}
-                                    alt="Avatar Tailwind CSS Component" />
-                            </td>
-                            <td className="text-base font-bold"> {item?.name} </td>
-                            <td className="text-base font-bold">${item?.price}</td>
-                            <td>
-                                <button onClick={() => handleAddToCart(item)} className="btn btn-lg btn-ghost">
-                                    <GrCheckboxSelected className='text-blue-400 text-2xl' />
-                                </button>
-                            </td>
-                            <td>
-                                <button onClick={() => setSelectedItem(item)} className="btn btn-lg btn-ghost">
-                                    <FaEye className='text-blue-400 text-2xl' />
-                                </button>
-                            </td>
-                        </tr>)}
-
-                    </tbody>
-                </table>
-                {selectedItem && <DetailsModal item={selectedItem} closeModal={closeModal} />}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
+                {
+                    needProducts.map((item, idx) => <MedicineCard
+                        key={idx}
+                        item={item}
+                        setSelectedItem={setSelectedItem}
+                        handleAddToCart={handleAddToCart}
+                    ></MedicineCard>)
+                }
             </div>
+            {selectedItem && <DetailsModal item={selectedItem} closeModal={closeModal} />}
             {/* ---------------Pagination-------------- */}
             <div className="pagination text-center flex items-center justify-center mt-5 px-2 flex-wrap gap-3">
                 <button onClick={hanlgePrevPage} className="btn hover:bg-yellow-400">Prev</button>

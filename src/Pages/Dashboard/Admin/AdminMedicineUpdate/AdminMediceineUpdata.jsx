@@ -6,6 +6,7 @@ import useAxiosPublic from "../../../../Hook/useAxiosPublic";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AdminMediceineUpdata = () => {
@@ -22,6 +23,14 @@ const AdminMediceineUpdata = () => {
             return res.data;
         }
     })
+    const { name, category, description, price, quantity, company } = product;
+    //for update defaultValue
+    useEffect(() => {
+        if (product) {
+            reset(product);
+        }
+    }, [product, reset]);
+
     const onSubmit = async (data) => {
         // image upload to imabb then get url
         const imageFile = { image: data.photo[0] }
@@ -30,17 +39,20 @@ const AdminMediceineUpdata = () => {
                 'content-type': 'multipart/form-data'
             }
         });
+
+        const updateProduct = {
+            name: data.name,
+            image: res.data.data.display_url,
+            category: data.category,
+            company: data.company,
+            description: data.description,
+            price: data.price,
+            quantity: data.quantity,
+        }
+        // console.log(updateProduct)
         if (res.data.success) {
-            const updateProduct = {
-                name: data.name,
-                image: res.data.data.display_url,
-                category: data.category,
-                company: data.company,
-                description: data.description,
-                price: data.price,
-                quantity: data.quantity,
-            }
             const update = await axiosSecure.patch(`/admin/product/${product?._id}`, updateProduct);
+            console.log(updateProduct);
             if (update.data.modifiedCount) {
                 Swal.fire({
                     position: "center",
@@ -68,9 +80,8 @@ const AdminMediceineUpdata = () => {
                             </label>
                             <input
                                 type="text"
+                                defaultValue={name}
                                 {...register("name")}
-                                defaultValue={product?.name}
-                                name="name"
                                 placeholder="Madicine Name"
                                 className="input input-bordered w-full mt-2 bg-white"
                             />
@@ -84,7 +95,6 @@ const AdminMediceineUpdata = () => {
                             <input
                                 type="file"
                                 {...register("photo", { required: true })}
-                                name="photo"
                                 placeholder="Madicine image"
                                 className="input input-bordered py-2 w-full mt-2 bg-white"
                             />
@@ -97,8 +107,8 @@ const AdminMediceineUpdata = () => {
                                 <span>Category</span>
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
-                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('category')}>
-                                <option disabled value={product?.category}>Select category</option>
+                            <select className="select select-bordered w-full bg-white" defaultValue={category} {...register('category')}>
+                                <option disabled value={category}>{category}</option>
                                 <option>OTC</option>
                                 <option>Syrup</option>
                                 <option>Injection</option>
@@ -117,8 +127,8 @@ const AdminMediceineUpdata = () => {
                                 <span>Company</span>
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
-                            <select className="select select-bordered w-full bg-white" defaultValue="default" {...register('company')}>
-                                <option disabled value={product?.company}>Select company</option>
+                            <select className="select select-bordered w-full bg-white" defaultValue={company} {...register('company')}>
+                                <option disabled value={company}>{company}</option>
                                 <option>Renata Limited</option>
                                 <option>Radiant Pharmaceuticals Ltd</option>
                                 <option>Eskayef Bangladesh Ltd</option>
@@ -140,7 +150,7 @@ const AdminMediceineUpdata = () => {
                         </label>
                         <textarea
                             {...register('description')} className="textarea textarea-bordered bg-white"
-                            defaultValue={product?.description}
+                            value={description}
                             placeholder="Detils Description"></textarea>
                         {errors.description && <span className='text-red-500'>This field is required</span>}
                     </div>
@@ -152,10 +162,9 @@ const AdminMediceineUpdata = () => {
                             </label>
                             <input
                                 type="number"
-                                defaultValue={product?.price}
+                                defaultValue={price}
                                 min={1}
                                 {...register("price")}
-                                name="price"
                                 placeholder="Madicine price"
                                 className="input input-bordered w-full mt-2 bg-white"
                             />
@@ -168,10 +177,9 @@ const AdminMediceineUpdata = () => {
                             </label>
                             <input
                                 type="number"
-                                defaultValue={product?.quantity}
+                                defaultValue={quantity}
                                 min={1}
                                 {...register("quantity")}
-                                name="quantity"
                                 placeholder="Madicine Quantity"
                                 className="input input-bordered py-2 w-full mt-2 bg-white"
                             />

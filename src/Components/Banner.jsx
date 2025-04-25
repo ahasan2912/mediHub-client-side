@@ -21,7 +21,7 @@ const Banner = () => {
             return res.data;
         }
     })
-    console.log(banners)
+
     if (loading) {
         return <LoadingSpinner></LoadingSpinner>
     }

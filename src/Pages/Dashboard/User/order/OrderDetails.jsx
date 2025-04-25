@@ -15,7 +15,8 @@ const OrderDetails = () => {
             return res.data;
         }
     })
-    const { quantity, customer, _id } = order;
+    console.log(order)
+    const { quantity, customer, _id, address, phone} = order;
     const name = customer?.name;
 
     // update order info
@@ -84,7 +85,7 @@ const OrderDetails = () => {
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
                             <input
-                                defaultValue='D-Block, Mirpur 10'
+                                defaultValue={address}
                                 type="text"
                                 name="address"
                                 placeholder="Madicine price"
@@ -97,7 +98,7 @@ const OrderDetails = () => {
                                 <span className="text-red-500 text-base font-semibold"> *</span>
                             </label>
                             <input
-                                defaultValue='01796905988'
+                                defaultValue= {phone}
                                 type="text"
                                 name="phone"
                                 placeholder="Madicine Quantity"

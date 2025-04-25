@@ -9,22 +9,23 @@ import useAuth from "../Hook/useAuth";
 import { FaBagShopping } from "react-icons/fa6";
 import { RiLoginBoxLine } from "react-icons/ri";
 import useOrder from "../Hook/useOrder";
-import useRole from "../Hook/useRole";
 import { Helmet } from "react-helmet-async";
 import { MdDashboard } from "react-icons/md";
 import { BsCartCheckFill } from "react-icons/bs";
+import useRole from "../Hook/useRole";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Navbar = () => {
-    const { user, handleLogOut } = useAuth();
+    const { user, handleLogOut, loading } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const toggleNavbar = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
     const [orders] = useOrder();
-    const [role] = useRole();
+    const [role, isLoading] = useRole();
     // const [language, setLanguage] = useState(null);
-
     // Handle screen size changes
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768) {
@@ -53,17 +54,15 @@ const Navbar = () => {
     const handleTheme = () => {
         setTheme(theme === "light" ? "dark" : "light");
     }
-
-    // handle Language Change
-    /* const handleLanguage = () => {
-        console.log(language);
-    } */
-
     const logOut = () => {
         handleLogOut();
         navigate('/');
     }
 
+    if(loading, isLoading){
+        return <LoadingSpinner></LoadingSpinner>
+    }
+     
     return (
         <nav
             className="fixed bg-[#25A8D6]  top-0 w-full shadow-md z-50 transition-all duration-300">

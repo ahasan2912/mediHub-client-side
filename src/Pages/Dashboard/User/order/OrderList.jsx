@@ -11,7 +11,8 @@ const OrderList = () => {
     const axiosSecure = useAxiosSecure();
     const totalAmount = orders.reduce((total, item) => total + parseInt(item.price), 0)
     // order delete from orderList
-    const handleOrderDelete = (id) => {
+    const handleOrderDelete = (id, medicineId, quantity) => {
+        let toatalQuantity = quantity;
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -33,7 +34,10 @@ const OrderList = () => {
                             refetch();
                         }
                     })
-
+                //Increment Quantity
+                axiosSecure.patch(`/descrement/quantity/${medicineId}`, {
+                    toatalQuantity, status: 'increase'});
+                refetch();
             }
         });
     }
@@ -52,6 +56,7 @@ const OrderList = () => {
                             <th className="text-base font-bold" >Photo</th>
                             <th className="text-base font-bold" >Medicine Name</th>
                             <th className="text-base font-bold" >Customer Name</th>
+                            <th className="text-base font-bold" >Quantity</th>
                             <th className="text-base font-bold" >Price</th>
                             <th className="text-base font-bold text-center" >Action</th>
                         </tr>
@@ -67,6 +72,8 @@ const OrderList = () => {
                             </td>
                             <td className="text-base font-bold"> {item?.name} </td>
                             <td className="text-base font-bold"> {item?.customer?.name} </td>
+                            <td className="text-base font-bold">${item?.quantity
+                            }</td>
                             <td className="text-base font-bold">${item?.price}</td>
                             <td className="text-center flex justify-center">
                                 <Link to={`/dashboard/orderDetails/${item?._id}`}>
@@ -74,7 +81,7 @@ const OrderList = () => {
                                         <FaRegEdit className='text-blue-400 text-2xl' />
                                     </button>
                                 </Link>
-                                <button onClick={() => handleOrderDelete(item?._id)} className="btn btn-sm md:btn-lg btn-ghost">
+                                <button onClick={() => handleOrderDelete(item?._id, item?.medicineId, item?.quantity)} className="btn btn-sm md:btn-lg btn-ghost">
                                     <MdDelete className='text-blue-400 text-2xl' />
                                 </button>
                             </td>
