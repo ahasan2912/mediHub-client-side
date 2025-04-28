@@ -100,14 +100,14 @@ const Sidebar = () => {
                                     <div
                                         tabIndex={0}
                                         role='button'
-                                        className='border-2 border-blue-300 rounded-full p-1'
+                                        className='border-2 border-gray-300 rounded-full p-1'
                                     >
                                         <div>
                                             <img
                                                 referrerPolicy='no-referrer'
                                                 alt='User Profile Photo'
                                                 src={user?.photoURL}
-                                                className="w-10 h-10 object-fill rounded-full my-anchor-element hover:animate-pulse"
+                                                className="w-8 h-8 object-fill rounded-full my-anchor-element hover:animate-pulse"
                                             />
                                             <Tooltip anchorSelect=".my-anchor-element" place="bottom">
                                                 {user?.displayName}

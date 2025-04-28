@@ -12,7 +12,7 @@ const Shop = () => {
     const numberOfPages = Math.ceil(count / itemPerPage);
     const pages = [...Array(numberOfPages).keys()];
     useEffect(() => {
-        fetch('http://localhost:5000/productsCount')
+        fetch('https://madi-hub-server-side.vercel.app/productsCount')
             .then(res => res.json())
             .then(data => setCount(data.count))
     }, []);
@@ -25,7 +25,7 @@ const Shop = () => {
     // pagination data send server
 
     useEffect(() => {
-        fetch(`http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&search=${search}&sort=${sort}`)
+        fetch(`https://madi-hub-server-side.vercel.app/products?page=${currentPage}&size=${itemPerPage}&search=${search}&sort=${sort}`)
             .then(res => res.json())
             .then(data => setProducts(data));
     }, [currentPage, itemPerPage, search, sort])

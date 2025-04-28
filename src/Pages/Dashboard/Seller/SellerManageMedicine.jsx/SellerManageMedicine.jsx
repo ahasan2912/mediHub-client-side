@@ -22,7 +22,7 @@ const SellerManageMedicine = () => {
     const pages = [...Array(numberOfPages).keys()];
 
     useEffect(() => {
-        fetch(`http://localhost:5000/sellerProductCount/${user?.email}`)
+        fetch(`https://madi-hub-server-side.vercel.app/sellerProductCount/${user?.email}`)
             .then(res => res.json())
             .then(data => setCount(data.count))
     }, [user?.email]);

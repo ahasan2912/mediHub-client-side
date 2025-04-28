@@ -16,7 +16,7 @@ const SellerManageOrder = () => {
     const pages = [...Array(numberOfPages).keys()];
 
     useEffect(() => {
-        fetch(`http://localhost:5000/ordersCount/${user?.email}`)
+        fetch(`https://madi-hub-server-side.vercel.app/ordersCount/${user?.email}`)
             .then(res => res.json())
             .then(data => setCount(data.count))
     }, [user?.email]);
