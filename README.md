@@ -31,18 +31,21 @@ MediHub store supports three roles: **Customer**,**Seller**, and **Admin**.
 - **JWT (JSON Web Token):** Implemented for role-based access control. After a user logs in, a JWT token is generated and stored, ensuring that the user is authenticated for accessing protected routes and resources on the platform.
 
 # Key and Features 
-- Navbar
-- Banner
-- Home
-- LogIn or Register
-- Add Medicine
-- All Show Medicine
-- Medicine Details
-- Errorpage
-- Footer
+- Multi-role Access: Separate dashboards for Admin, Seller, and Customer.
+- Authentication & Authorization: Secure login system using Firebase and JWT.
+- Product Management: Add, update, delete, and view medicine details (for Admins and Sellers).
+- Order Management: Track, update, or cancel orders based on user role.
+- Payment Integration: Secure online payments using Stripe.
+- Responsive UI: Mobile-friendly design using Tailwind CSS and DaisyUI.
+- Search, Filter & Sort: Efficient navigation through products.
+- SEO Optimization: Implemented with React Helmet.
+- Notification System: Toast messages with React Toastify and alerts using SweetAlert.
+- Image Preview: Product image view using React Lightbox.
+- Dashboard Analytics: Role-based dashboards with organized access and data.
+- Manage Users: Admin can promote users to Admin or Seller roles, and remove users when necessary.
 
-#
-# Technologies  used this project:
+
+# Technologies
 - JavaScript (ES6), JSX
 - React, React Router
 - Node.js, MongoDB (Backend)
@@ -53,5 +56,5 @@ MediHub store supports three roles: **Customer**,**Seller**, and **Admin**.
 - CSS/Tailwind, DaisyUI
 - Git & GitHub, Firebase and Vercel (Deployment)
 
-# Deploying with Firebase
-# [Live-site: ](https://medihub-fullstack.web.app/)
+### Deploying with Firebase
+## [Live-site: ](https://medihub-fullstack.web.app/)
